@@ -1,0 +1,14 @@
+.result-page{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.wins-losses{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    flex-direction: row;
+}
