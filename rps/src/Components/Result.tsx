@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IRound } from "../Interfaces/IRound";
 import "./Result.css";
 import RockP1 from "../Images/RockP1.jpg";
@@ -11,22 +11,23 @@ import ScissorsP2 from "../Images/ScissorsP2.jpg";
 
 export const Result: React.FC<IRound> = (round: IRound) => {
 
-    //const [winner, setWinner] = useState<string>("You are a winner");
-    let winner = "You are a winner";
+    const [winner, setWinner] = useState<string>("You are a winner");
+
+    useEffect(() => {
+        updateScore(round);
+    },[])
 
     const updateScore = (round: IRound) => {
         console.log(round);
         if(round.userChoice === round.opponentChoice){
-            winner = "tie"; 
+            setWinner("tie"); 
         }
         else if((round.userChoice === "1" && round.opponentChoice === "2")
                 || (round.userChoice === "2" && round.opponentChoice === "3")
                 || (round.userChoice === "3" && round.opponentChoice === "1")) {
-            winner = "You are a looooser";
+            setWinner("You are a loser");
         }
     }
-
-    updateScore(round);
 
 
     return(
