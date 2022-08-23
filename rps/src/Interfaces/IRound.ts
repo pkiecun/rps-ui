@@ -1,4 +1,5 @@
 export interface IRound {
-    userChoice: string,
-    opponentChoice: string
+    userChoice: number,
+    opponentChoice: number,
+    winner: number
 }

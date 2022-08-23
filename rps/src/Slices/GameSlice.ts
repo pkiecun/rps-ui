@@ -5,12 +5,13 @@ import { IGame } from "../Interfaces/IGame";
 interface GameSliceState {
   loading: boolean;
   error: boolean;
-  game?: IGame;
-}
+  opponentChoice: number;
+};
 
 const initialGameState: GameSliceState = {
   loading: false,
   error: false,
+  opponentChoice: Math.floor(Math.random() * 3)
 };
 
 export const soloGame = createAsyncThunk(
@@ -30,7 +31,7 @@ export const GameSlice = createSlice({
   initialState: initialGameState,
   reducers: {
     clearGame: (state) => {
-      state.game = undefined;
+      state.opponentChoice = 0;
     },
   },
   extraReducers: (builder) => {
@@ -39,7 +40,7 @@ export const GameSlice = createSlice({
     });
 
     builder.addCase(soloGame.fulfilled, (state, action) => {
-      state.game = action.payload;
+      state.opponentChoice = action.payload!;
       state.loading = false;
       state.error = false;
     });

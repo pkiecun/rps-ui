@@ -14,18 +14,15 @@ export const Result: React.FC<IRound> = (round: IRound) => {
     const [winner, setWinner] = useState<string>("You are a winner");
 
     useEffect(() => {
-        updateScore(round);
+        displayResult(round);
     },[])
 
-    const updateScore = (round: IRound) => {
-        console.log(round);
-        if(round.userChoice === round.opponentChoice){
+    const displayResult = (round: IRound) => {
+        if(round.winner === 0){
             setWinner("tie"); 
         }
-        else if((round.userChoice === "1" && round.opponentChoice === "2")
-                || (round.userChoice === "2" && round.opponentChoice === "3")
-                || (round.userChoice === "3" && round.opponentChoice === "1")) {
-            setWinner("You are a loser");
+        else if(round.winner === 2) {
+            setWinner("You are a LOOOOOSEERR");
         }
     }
 
@@ -33,12 +30,12 @@ export const Result: React.FC<IRound> = (round: IRound) => {
     return(
         <>
         <h1 className="win-status">{winner}</h1>
-        {round.userChoice === "1"? <img className="image" src={RockP1} alt="picOfRock"/> : <></>}
-        {round.userChoice === "2"? <img className="image" src={PaperP1} alt="picOfPaper"/> : <></>}
-        {round.userChoice === "3"? <img className="image" src={ScissorsP1} alt="picOfScissors"/> : <></>}
-        {round.opponentChoice === "1"? <img className="image" src={RockP2} alt="picOfRock"/> : <></>}
-        {round.opponentChoice === "2"? <img className="image" src={PaperP2} alt="picOfPaper"/> : <></>}
-        {round.opponentChoice === "3"? <img className="image" src={ScissorsP2} alt="picOfScissors"/> : <></>}
+        {round.userChoice === 1? <img className="image" src={RockP1} alt="picOfRock"/> : <></>}
+        {round.userChoice === 2? <img className="image" src={PaperP1} alt="picOfPaper"/> : <></>}
+        {round.userChoice === 3? <img className="image" src={ScissorsP1} alt="picOfScissors"/> : <></>}
+        {round.opponentChoice === 1? <img className="image" src={RockP2} alt="picOfRock"/> : <></>}
+        {round.opponentChoice === 2? <img className="image" src={PaperP2} alt="picOfPaper"/> : <></>}
+        {round.opponentChoice === 3? <img className="image" src={ScissorsP2} alt="picOfScissors"/> : <></>}
         </>
     )
 
