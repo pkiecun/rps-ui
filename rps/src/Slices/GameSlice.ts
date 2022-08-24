@@ -11,7 +11,7 @@ interface GameSliceState {
 const initialGameState: GameSliceState = {
   loading: false,
   error: false,
-  opponentChoice: Math.floor(Math.random() * 3)
+  opponentChoice: Math.floor((Math.random() * 3) + 1)
 };
 
 export const soloGame = createAsyncThunk(

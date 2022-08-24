@@ -28,7 +28,7 @@ export const Home: React.FC = () => {
         setRound({
           userChoice:round.userChoice,
           opponentChoice:round.opponentChoice,
-          winner: 1
+          winner:round.winner
         })
       }
       else if((round.userChoice === 1 && round.opponentChoice === 2)
@@ -38,14 +38,14 @@ export const Home: React.FC = () => {
         setRound({
           userChoice:round.userChoice,
           opponentChoice:round.opponentChoice,
-          winner: 2
+          winner:round.winner
         })
       } else {
         round.winner = 0;
         setRound({
           userChoice:round.userChoice,
           opponentChoice:round.opponentChoice,
-          winner: 0
+          winner:round.winner
         })
       }
   }
@@ -71,12 +71,12 @@ export const Home: React.FC = () => {
     setRound({
       userChoice: 0,
       opponentChoice: 0,
-      winner: 1
+      winner: 0
     })
   }
 
   const makeJustinHappy = () => {
-    
+    console.log(round);
   }
 
   return (
