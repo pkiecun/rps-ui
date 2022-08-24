@@ -11,7 +11,7 @@ import ScissorsP2 from "../Images/ScissorsP2.jpg";
 
 export const Result: React.FC<IRound> = (round: IRound) => {
 
-    const [winner, setWinner] = useState<string>("You are a winner");
+    const [winner, setWinner] = useState<string>("");
 
     useEffect(() => {
         displayResult(round);
@@ -20,6 +20,9 @@ export const Result: React.FC<IRound> = (round: IRound) => {
     const displayResult = (round: IRound) => {
         if(round.winner === 0){
             setWinner("tie"); 
+        }
+        else if(round.winner === 1){
+            setWinner("You are a winner");
         }
         else if(round.winner === 2) {
             setWinner("You are a LOOOOOSEERR");
