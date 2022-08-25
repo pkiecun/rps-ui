@@ -75,13 +75,13 @@ export const Home: React.FC = () => {
     })
   }
 
-  const makeJustinHappy = () => {
-    console.log(round);
-  }
+  // const makeJustinHappy = () => {
+  //   console.log(round);
+  // }
 
   return (
     <div className="wholePage">
-      <div className="result-page">
+      <div className="result-page" title ="result-page">
         <div className="wins-losses">
             <div className="wins">Wins
                 <div className="win-count">{record.wins}</div>
@@ -106,7 +106,7 @@ export const Home: React.FC = () => {
         </>: <>
           <Result {...round}/>
           <button className="play-again" value="0" onClick={handlePlayAgain}>Play Again</button>
-          <button onClick={makeJustinHappy}>Justin is very happy</button>
+          {/* <button onClick={makeJustinHappy}>Justin is very happy</button> */}
           </>} 
     </div>
   );
