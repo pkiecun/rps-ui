@@ -18,7 +18,7 @@ export const soloGame = createAsyncThunk(
     "comp", 
     async (thunkAPI) => {
     try {
-      const res = await axios.get(`http://localhost:8000/comp`);
+      const res = await axios.get(`http://13.58.138.55:8000/comp`);
       return res.data;
     } catch (e) {
       console.log(e);
