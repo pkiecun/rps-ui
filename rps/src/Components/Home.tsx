@@ -18,6 +18,7 @@ export const Home: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
 
+
   const chooseWinner = (round: IRound) => {
     
       
@@ -65,7 +66,7 @@ export const Home: React.FC = () => {
         record.losses += 1;
       }
 
-  }
+
 
   const handlePlayAgain = () => {
     setRound({
@@ -106,7 +107,9 @@ export const Home: React.FC = () => {
         </>: <>
           <Result {...round}/>
           <button className="play-again" value="0" onClick={handlePlayAgain}>Play Again</button>
+
           {/* <button onClick={makeJustinHappy}>Justin is very happy</button> */}
+
           </>} 
     </div>
   );
