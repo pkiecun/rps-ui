@@ -65,6 +65,7 @@ export const Home: React.FC = () => {
       } else if(round.winner === 2){
         record.losses += 1;
       }
+    }
 
 
 
