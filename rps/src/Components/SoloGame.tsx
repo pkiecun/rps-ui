@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Home.css";
+import "./SoloGame.css";
 import { Result } from "./Result";
 import RockP1 from "../Images/RockP1.jpg";
 import PaperP1 from "../Images/PaperP1.jpg";
@@ -9,16 +9,17 @@ import { IGame } from "../Interfaces/IGame";
 import { AppDispatch, RootState } from "../Store";
 import { useDispatch, useSelector } from "react-redux";
 import { soloGame } from "../Slices/GameSlice";
-import Messenger from "./Messenger";
+//import Messenger from "./Messenger";
+//import Home from "./Home";
+import { useNavigate } from "react-router-dom";
 
-export const Home: React.FC = () => {
+export const SoloGame: React.FC = () => {
 
   const [round, setRound] = useState<IRound>({userChoice: 0, opponentChoice: 0, winner: 0});
   const [record, setRecord] = useState<IGame>({matchTo: 3, wins: 0, losses: 0});
   const oppMove = useSelector((state:RootState) => state.game);
   const dispatch: AppDispatch = useDispatch();
-
-
+  const navigate = useNavigate();
 
   const chooseWinner = (round: IRound) => {
     
@@ -109,12 +110,9 @@ export const Home: React.FC = () => {
         </>: <>
           <Result {...round}/>
           <button className="play-again" value="0" onClick={handlePlayAgain}>Play Again</button>
-
-          {/* <button onClick={makeJustinHappy}>Justin is very happy</button> */}
-          
-
           </>} 
-          <Messenger/>
+          {/* <button onClick={navigate()}>Go Home</button> */}
+          {/* <Messenger/> */}
     </div>
   );
 };

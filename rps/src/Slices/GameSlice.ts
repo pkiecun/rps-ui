@@ -13,12 +13,14 @@ const initialGameState: GameSliceState = {
   error: false,
   opponentChoice: Math.floor((Math.random() * 3) + 1)
 };
+//http://localhost:8000
+//http://3.21.163.16:8000/comp
 
 export const soloGame = createAsyncThunk(
     "comp", 
     async (thunkAPI) => {
     try {
-      const res = await axios.get(`http://3.21.163.16:8000/comp`);
+      const res = await axios.get(`http://localhost:8000/comp`);
       return res.data;
     } catch (e) {
       console.log(e);

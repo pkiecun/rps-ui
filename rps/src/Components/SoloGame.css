@@ -1,0 +1,57 @@
+
+.wholePage {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.result-page{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.wins-losses{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.table {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rock {
+    height: 200px;
+    width: 200px;
+    margin: 20px;
+} 
+
+.paper {
+    height: 200px;
+    width: 200px;
+    margin: 20px;
+} 
+
+.scissors {
+    height: 200px;
+    width: 200px;
+    margin: 20px;
+} 
+
+.image {
+    /* height: 100px;
+    width: 100px; */
+    height: fit-content;
+    width: fit-content;
+}
+
+.play-again {
+    height: 50px;
+    width: 100px;
+}
