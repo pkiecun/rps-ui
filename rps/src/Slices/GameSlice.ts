@@ -6,6 +6,7 @@ interface GameSliceState {
   loading: boolean;
   error: boolean;
   opponentChoice: number;
+  game?: IGame;
 };
 
 const initialGameState: GameSliceState = {
@@ -27,6 +28,17 @@ export const soloGame = createAsyncThunk(
     }
   });
 
+  // export const multiGame = createAsyncThunk(
+  //   "multi", 
+  //   async (thunkAPI) => {
+  //   try {
+  //     const res = await axios.get(`http://localhost:8000/comp`);
+  //     return res.data;
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // });
+
 
 export const GameSlice = createSlice({
   name: "game",
@@ -46,6 +58,15 @@ export const GameSlice = createSlice({
       state.loading = false;
       state.error = false;
     });
+    // builder.addCase(multiGame.pending, (state, action) => {
+    //   state.loading = true;
+    // });
+
+    // builder.addCase(multiGame.fulfilled, (state, action) => {
+    //   state.opponentChoice = action.payload!;
+    //   state.loading = false;
+    //   state.error = false;
+    // });
   },
 });
 

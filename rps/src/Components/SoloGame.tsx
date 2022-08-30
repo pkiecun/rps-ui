@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 export const SoloGame: React.FC = () => {
 
   const [round, setRound] = useState<IRound>({userChoice: 0, opponentChoice: 0, winner: 0});
-  const [record, setRecord] = useState<IGame>({matchTo: 3, wins: 0, losses: 0});
+  const [record, setRecord] = useState<IGame>({matchTo: 3, wins: 0, losses: 0, user:""});
   const oppMove = useSelector((state:RootState) => state.game);
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();

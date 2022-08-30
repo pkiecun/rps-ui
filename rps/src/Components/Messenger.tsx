@@ -137,18 +137,18 @@ const Messenger: React.FC = () => {
         }
     }
 
-    const sendValue = () => {
-        if (stompClient) {
-            var chatMessage = {
-                senderName: userData.username,
-                message: userData.message,
-                status: "MESSAGE"
-            };
-            console.log(chatMessage);
-            stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
-            setUserData({ ...userData, "message": "" });
-        }
-    }
+    // const sendValue = () => {
+    //     if (stompClient) {
+    //         var chatMessage = {
+    //             senderName: userData.username,
+    //             message: userData.message,
+    //             status: "MESSAGE"
+    //         };
+    //         console.log(chatMessage);
+    //         stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+    //         setUserData({ ...userData, "message": "" });
+    //     }
+    // }
 
     const closeChatBox = () => {
         setShowInput(false);
@@ -171,14 +171,14 @@ const Messenger: React.FC = () => {
             setUserData({ ...userData, "message": "" });
         }
     }
-    const handleUsername = (event: { target: { value: any; }; }) => {
-        const { value } = event.target;
-        setUserData({ ...userData, "username": value });
-    }
-    const registerUser = () => {
-        setShowInput(false);
-        connect();
-    }
+    // const handleUsername = (event: { target: { value: any; }; }) => {
+    //     const { value } = event.target;
+    //     setUserData({ ...userData, "username": value });
+    // }
+    // const registerUser = () => {
+    //     setShowInput(false);
+    //     connect();
+    // }
 
     return (
         <div className="container">
