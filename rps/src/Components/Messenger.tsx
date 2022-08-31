@@ -11,7 +11,7 @@ const Messenger: React.FC = () => {
     const [tab, setTab] = useState("CHATROOM");
     const [showInput, setShowInput] = useState(false);
     const [showSupport, setShowSupport] = useState(true);
-    const userName = {name:"Player", role: 1};
+    var userName = {name:"Player", role: 1};
 
     const [userData, setUserData] = useState({
         username: '',
@@ -179,21 +179,24 @@ const Messenger: React.FC = () => {
     //     setShowInput(false);
     //     connect();
     // }
+    const beAdmin = () =>{
+        userName = {name:"Admin", role: 3};
+    }
 
     return (
         <div className="container">
             {userData.connected ?
                 <div className="chat-box">
 
-                    {userData.admin == true &&
+                    
                         <div className="member-list">
                             <ul>
                                 {[...privateChats.keys()].map((name, index) => (
-                                    <li onClick={() => { setTab(name) }} className={`member ${tab === name && "active"}`} key={index}>{name}</li>
+                                        <li onClick={() => { setTab(name) }} className={`member ${tab === name && "active"}`} key={index}>{name}</li>     
                                 ))}
                             </ul>
                         </div>
-                    }
+                    
 
 
                     {tab !== "CHATROOM" && <div className="chat-content">
@@ -215,8 +218,9 @@ const Messenger: React.FC = () => {
                     </div>}
                 </div>
                 :
-                <button className={(!showInput && showSupport) ? "showConnect" : "hideConnect"} onClick={showConnect}>Get Support</button>
+                <button className={(!showInput && showSupport) ? "showConnect" : "hideConnect"} onClick={showConnect}>Multi-Player</button>
             }
+            <button onClick={beAdmin}>admin</button>
         </div>
     )
 }
