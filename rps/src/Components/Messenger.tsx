@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Client, over } from 'stompjs';
 import SockJS from 'sockjs-client';
 import { RootState } from "../Store";
 import { useSelector } from 'react-redux';
+import RockP1 from "../Images/RockP1.jpg";
+import PaperP1 from "../Images/PaperP1.jpg";
+import ScissorsP1 from "../Images/ScissorsP1.jpg";
+import { IRound } from "../Interfaces/IRound";
+import { MultiGame } from './MultiGame';
+import { Result } from './Result';
 
 var stompClient: Client | null = null;
 const Messenger: React.FC = () => {
@@ -12,14 +18,26 @@ const Messenger: React.FC = () => {
     const [showInput, setShowInput] = useState(false);
     const [showSupport, setShowSupport] = useState(true);
     var userName = {name:"Player", role: 1};
-
+    const [round, setRound] = useState<IRound>({userChoice: 0, opponentChoice: 0, winner: 0});
+    var count = 0;
+    var stuff :IRound = {userChoice: 0, opponentChoice: 0, winner: 0}
     const [userData, setUserData] = useState({
         username: '',
         receivername: '',
         connected: false,
-        message: '',
+        message: '0',
         admin: false
     });
+
+    useEffect(()=>{
+        if(round.userChoice !== 0 && round.opponentChoice !== 0 && count < 1){
+            stuff = chooseWinner(round);
+            count++;
+            console.log(stuff.winner + " " + count);
+        }
+    },[round, count]);
+
+
 
     // Show the input box when the user clicks the Get Support button
     const showConnect = () => {
@@ -77,14 +95,14 @@ const Messenger: React.FC = () => {
             console.log("joined chat");
             stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
 
-            if (!userData.admin) {
-                stompClient.send("/app/private-message", {}, JSON.stringify(welcomeMsg));
-                if (!privateChats.get("Admin")) {
-                    privateChats.set("Admin", []);
-                    setPrivateChats(new Map(privateChats));
-                }
-                setTab("Admin");
-            }
+            // if (!userData.admin) {
+            //     stompClient.send("/app/private-message", {}, JSON.stringify(welcomeMsg));
+            //     if (!privateChats.get("Admin")) {
+            //         privateChats.set("Admin", []);
+            //         setPrivateChats(new Map(privateChats));
+            //     }
+            //     setTab("Admin");
+            // }
         }
     }
 
@@ -110,14 +128,15 @@ const Messenger: React.FC = () => {
         var payloadData = JSON.parse(payload.body);
         if (privateChats.get(payloadData.senderName)) {
             privateChats.get(payloadData.senderName).push(payloadData);
+            setRound({userChoice: round.userChoice, opponentChoice: parseInt(payloadData.message), winner: 0});
             setPrivateChats(new Map(privateChats));
 
         } else {
             let list = [];
             list.push(payloadData);
+            setRound({userChoice: round.userChoice, opponentChoice: parseInt(payloadData.message), winner: 0});
             privateChats.set(payloadData.senderName, list);
             setPrivateChats(new Map(privateChats));
-
         }
     }
 
@@ -126,8 +145,9 @@ const Messenger: React.FC = () => {
         console.log(err);
     }
 
-    const handleMessage = (event: { target: { value: any; }; }) => {
-        const { value } = event.target;
+    const handleMessage =  async (event: React.MouseEvent<HTMLButtonElement>) => {
+        const  value  = event.currentTarget.value;
+        round.userChoice = parseInt(value);
         setUserData({ ...userData, "message": value });
     }
 
@@ -183,6 +203,42 @@ const Messenger: React.FC = () => {
         userName = {name:"Admin", role: 3};
     }
 
+    const chooseWinner = (round: IRound) => {
+    
+      let thisRound :IRound = {
+            userChoice:round.userChoice,
+            opponentChoice:round.opponentChoice,
+            winner:1
+      }
+        if((round.userChoice === 1  && round.opponentChoice === 3)
+            || (round.userChoice == 2 && round.opponentChoice === 1)
+            || (round.userChoice === 3 && round.opponentChoice === 2)){
+          
+          thisRound = {
+            userChoice:round.userChoice,
+            opponentChoice:round.opponentChoice,
+            winner:1
+          }
+        }
+        else if((round.userChoice === 1 && round.opponentChoice === 2)
+                || (round.userChoice === 2 && round.opponentChoice === 3)
+                || (round.userChoice === 3 && round.opponentChoice === 1)) {
+          
+          thisRound = {
+            userChoice:round.userChoice,
+            opponentChoice:round.opponentChoice,
+            winner:2
+          }
+        } else {
+          
+          thisRound = {
+            userChoice:round.userChoice,
+            opponentChoice:round.opponentChoice,
+            winner:0
+          }
+        }
+        return thisRound;
+    }
     return (
         <div className="container">
             {userData.connected ?
@@ -206,13 +262,30 @@ const Messenger: React.FC = () => {
                             {[...privateChats.get(tab)].map((chat, index) => (
                                 <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
                                     {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
-                                    <div className="message-data">{chat.message}</div>
+                                    {/* <>{console.log(userData.message+ " " + chat.message)}</> */}
+                                    <>
+                                    {/* {chat.senderName !== userData.username &&
+                                    <>{setRound({userChoice: round.userChoice, opponentChoice: parseInt(chat.message), winner: 0})}
+                                    {console.log(round)}</>
+                                    } */}
+                                    </>
+                                    {/* {<div className="message-data">{round.winner}</div>} */}
                                     {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
                                 </li>
                             ))}
                         </ul>
+                        <h1>CHOOSE!</h1>
+        <table className="table">
+          <thead>
+            <tr>
+              <td><button  className="rock" value="1" onClick={handleMessage}><img className="image" src={RockP1} alt="picOfRock"/></button></td>
+              <td><button className="paper" value="2" onClick={handleMessage}><img className="image" src={PaperP1} alt="picOfPaper"/></button></td>
+              <td><button className="scissors" value="3" onClick={handleMessage}><img className="image" src={ScissorsP1} alt="picOfScissors"/></button></td>
+            </tr>
+          </thead>
+        </table> 
                         <div className="send-message">
-                            <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} onKeyPress={(e) => keyPress(e)} />
+                            {/* <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} onKeyPress={(e) => keyPress(e)} /> */}
                             <button type="button" className="send-button" onClick={sendPrivateValue}>Send</button>
                         </div>
                     </div>}
@@ -221,6 +294,11 @@ const Messenger: React.FC = () => {
                 <button className={(!showInput && showSupport) ? "showConnect" : "hideConnect"} onClick={showConnect}>Multi-Player</button>
             }
             <button onClick={beAdmin}>admin</button>
+            {/* {round.userChoice !== 0 && round.opponentChoice !== 0?
+            <>{console.log(round)}
+            {chooseWinner(round)}</>
+            :<>{console.log(round)}</>} */}
+            {count > 0 && <Result {...stuff}/>}
         </div>
     )
 }
