@@ -7,15 +7,24 @@ import ScissorsP1 from "../Images/ScissorsP1.jpg";
 import RockP2 from "../Images/RockP2.jpg";
 import PaperP2 from "../Images/PaperP2.jpg";
 import ScissorsP2 from "../Images/ScissorsP2.jpg";
+import { useNavigate } from "react-router-dom";
 
 
 export const Result: React.FC<IRound> = (round: IRound) => {
-
+    console.log(round);
     const [winner, setWinner] = useState<string>("");
 
     useEffect(() => {
         displayResult(round);
     },[])
+    const navigate = useNavigate();
+    
+  
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) =>{
+      if(event.currentTarget.id === "0"){
+      navigate("/");
+      }
+     };
 
     const displayResult = (round: IRound) => {
         if(round.winner === 0){
@@ -39,6 +48,7 @@ export const Result: React.FC<IRound> = (round: IRound) => {
         {round.opponentChoice === 1? <img className="image" src={RockP2} alt="picOfRock"/> : <></>}
         {round.opponentChoice === 2? <img className="image" src={PaperP2} alt="picOfPaper"/> : <></>}
         {round.opponentChoice === 3? <img className="image" src={ScissorsP2} alt="picOfScissors"/> : <></>}
+        <button id = "0" onClick={handleClick}>Home</button>
         </>
     )
 

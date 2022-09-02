@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { Client, over } from 'stompjs';
 import SockJS from 'sockjs-client';
 import { RootState } from "../Store";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import RockP1 from "../Images/RockP1.jpg";
 import PaperP1 from "../Images/PaperP1.jpg";
 import ScissorsP1 from "../Images/ScissorsP1.jpg";
 import { IRound } from "../Interfaces/IRound";
 import { MultiGame } from './MultiGame';
 import { Result } from './Result';
+import { useNavigate } from 'react-router-dom';
+import { AppDispatch } from '../Store';
+import { opponentMove } from '../Slices/GameSlice';
 
 var stompClient: Client | null = null;
 const Messenger: React.FC = () => {
@@ -18,9 +21,9 @@ const Messenger: React.FC = () => {
     const [showInput, setShowInput] = useState(false);
     const [showSupport, setShowSupport] = useState(true);
     var userName = {name:"Player", role: 1};
-    const [round, setRound] = useState<IRound>({userChoice: 0, opponentChoice: 0, winner: 0});
-    var count = 0;
-    var stuff :IRound = {userChoice: 0, opponentChoice: 0, winner: 0}
+    const game = useSelector((state:RootState)=> state.game.round);
+    const [round, setRound] = useState<IRound>({userChoice: 0, opponentChoice: 0, winner: 4});
+    var count = true;
     const [userData, setUserData] = useState({
         username: '',
         receivername: '',
@@ -28,14 +31,17 @@ const Messenger: React.FC = () => {
         message: '0',
         admin: false
     });
+    const dispatch:AppDispatch = useDispatch();
 
     useEffect(()=>{
-        if(round.userChoice !== 0 && round.opponentChoice !== 0 && count < 1){
-            stuff = chooseWinner(round);
-            count++;
-            console.log(stuff.winner + " " + count);
+        if(round.userChoice !== 0 && round.opponentChoice !== 0 && count){
+            dispatch(opponentMove(chooseWinner(round)));
+            count =false;
+            console.log(game.winner + " " + count); 
+            // setTimeout(()=>{setRound({userChoice: 0, opponentChoice: 0, winner: 4})}, 5000);
         }
-    },[round, count]);
+        
+    },[round]);
 
 
 
@@ -128,13 +134,13 @@ const Messenger: React.FC = () => {
         var payloadData = JSON.parse(payload.body);
         if (privateChats.get(payloadData.senderName)) {
             privateChats.get(payloadData.senderName).push(payloadData);
-            setRound({userChoice: round.userChoice, opponentChoice: parseInt(payloadData.message), winner: 0});
+            setRound({userChoice: round.userChoice, opponentChoice: parseInt(payloadData.message), winner: 4});
             setPrivateChats(new Map(privateChats));
 
         } else {
             let list = [];
             list.push(payloadData);
-            setRound({userChoice: round.userChoice, opponentChoice: parseInt(payloadData.message), winner: 0});
+            setRound({userChoice: round.userChoice, opponentChoice: parseInt(payloadData.message), winner: 4});
             privateChats.set(payloadData.senderName, list);
             setPrivateChats(new Map(privateChats));
         }
@@ -147,15 +153,14 @@ const Messenger: React.FC = () => {
 
     const handleMessage =  async (event: React.MouseEvent<HTMLButtonElement>) => {
         const  value  = event.currentTarget.value;
-        round.userChoice = parseInt(value);
         setUserData({ ...userData, "message": value });
     }
 
-    const keyPress = (e: any) => {
-        if (e.key === "Enter") {
-            sendPrivateValue();
-        }
-    }
+    // const keyPress = (e: any) => {
+    //     if (e.key === "Enter") {
+    //         sendPrivateValue();
+    //     }
+    // }
 
     // const sendValue = () => {
     //     if (stompClient) {
@@ -189,6 +194,7 @@ const Messenger: React.FC = () => {
             }
             stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
             setUserData({ ...userData, "message": "" });
+            setRound({userChoice: parseInt(chatMessage.message), opponentChoice: round.opponentChoice, winner: 4});
         }
     }
     // const handleUsername = (event: { target: { value: any; }; }) => {
@@ -199,16 +205,13 @@ const Messenger: React.FC = () => {
     //     setShowInput(false);
     //     connect();
     // }
-    const beAdmin = () =>{
-        userName = {name:"Admin", role: 3};
-    }
 
     const chooseWinner = (round: IRound) => {
     
       let thisRound :IRound = {
             userChoice:round.userChoice,
             opponentChoice:round.opponentChoice,
-            winner:1
+            winner:0
       }
         if((round.userChoice === 1  && round.opponentChoice === 3)
             || (round.userChoice == 2 && round.opponentChoice === 1)
@@ -271,10 +274,13 @@ const Messenger: React.FC = () => {
                                     </>
                                     {/* {<div className="message-data">{round.winner}</div>} */}
                                     {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
+                                    {/* <Result {...round}/> */}
                                 </li>
                             ))}
                         </ul>
-                        <h1>CHOOSE!</h1>
+                        {round.userChoice === 0 && 
+        <>
+        <h1>CHOOSE!</h1>
         <table className="table">
           <thead>
             <tr>
@@ -284,21 +290,25 @@ const Messenger: React.FC = () => {
             </tr>
           </thead>
         </table> 
-                        <div className="send-message">
+        <div className="send-message">
                             {/* <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} onKeyPress={(e) => keyPress(e)} /> */}
                             <button type="button" className="send-button" onClick={sendPrivateValue}>Send</button>
                         </div>
+          </>} 
+                        
                     </div>}
                 </div>
                 :
                 <button className={(!showInput && showSupport) ? "showConnect" : "hideConnect"} onClick={showConnect}>Multi-Player</button>
             }
-            <button onClick={beAdmin}>admin</button>
-            {/* {round.userChoice !== 0 && round.opponentChoice !== 0?
+            {round.userChoice !== 0 && round.opponentChoice !== 0 && round.winner !==4?
             <>{console.log(round)}
-            {chooseWinner(round)}</>
-            :<>{console.log(round)}</>} */}
-            {count > 0 && <Result {...stuff}/>}
+            <Result {...round}/></>
+            :<></>}
+            <>
+           
+            {/* {async ()=>{ if(stuff.winner !== 4) {<Result {...stuff}/>}}} */}
+            </>
         </div>
     )
 }
