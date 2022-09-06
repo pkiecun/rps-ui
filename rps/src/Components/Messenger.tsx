@@ -126,6 +126,7 @@ const Messenger: React.FC = () => {
                 if (!privateChats.get(payloadData.senderName)) {
                     privateChats.set(payloadData.senderName, []);
                     setPrivateChats(new Map(privateChats));
+                    userJoin();
                 }
                 break;
             case "MESSAGE":
@@ -258,13 +259,12 @@ const Messenger: React.FC = () => {
                     
                         <div className="member-list">
                             <ul>
-                                {[...privateChats.keys()].map((name, index) => (
+                                {[...privateChats.keys()].slice(1).map((name, index) => (
                                         <li onClick={() => { setTab(name) }} className={`member ${tab === name && "active"}`} key={index}>{name}</li>     
                                 ))}
                             </ul>
                         </div>
                     
-
 
                     {tab !== "CHATROOM" && <div className="chat-content">
 
