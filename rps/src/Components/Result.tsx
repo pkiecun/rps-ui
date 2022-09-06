@@ -8,11 +8,17 @@ import RockP2 from "../Images/RockP2.jpg";
 import PaperP2 from "../Images/PaperP2.jpg";
 import ScissorsP2 from "../Images/ScissorsP2.jpg";
 import { useNavigate } from "react-router-dom";
+import { AppDispatch } from '../Store';
+import { opponentMove } from '../Slices/GameSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from "../Store";
 
 
 export const Result: React.FC<IRound> = (round: IRound) => {
     console.log(round);
     const [winner, setWinner] = useState<string>("");
+    const game = useSelector((state:RootState)=> state.game.round);
+    const dispatch:AppDispatch = useDispatch();
 
     useEffect(() => {
         displayResult(round);
@@ -22,6 +28,7 @@ export const Result: React.FC<IRound> = (round: IRound) => {
   
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) =>{
       if(event.currentTarget.id === "0"){
+        dispatch(opponentMove({userChoice: 0, opponentChoice: 0, winner: 4}));
       navigate("/");
       }
      };

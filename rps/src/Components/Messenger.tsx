@@ -22,7 +22,9 @@ const Messenger: React.FC = () => {
     const [showSupport, setShowSupport] = useState(true);
     var userName = {name:"Player", role: 1};
     const game = useSelector((state:RootState)=> state.game.round);
-    const [round, setRound] = useState<IRound>({userChoice: 0, opponentChoice: 0, winner: 4});
+    // const [round, setRound] = useState<IRound>({userChoice: 0, opponentChoice: 0, winner: 4});
+    const [usersChoice, setUserChoice] = useState<number>(0);
+    const [opponentsChoice, setOpponentChoice] = useState<number>(0);
     var count = true;
     const [userData, setUserData] = useState({
         username: '',
@@ -34,14 +36,16 @@ const Messenger: React.FC = () => {
     const dispatch:AppDispatch = useDispatch();
 
     useEffect(()=>{
-        if(round.userChoice !== 0 && round.opponentChoice !== 0 && count){
-            dispatch(opponentMove(chooseWinner(round)));
+        console.log(game.winner + " " + count + " " + usersChoice);
+        if(usersChoice !== 0 && opponentsChoice !== 0 && game.userChoice === 0 && game.opponentChoice === 0 && count){
+            let neo = chooseWinner({userChoice: usersChoice, opponentChoice: opponentsChoice, winner: 0});
+            dispatch(opponentMove(neo));
             count =false;
-            console.log(game.winner + " " + count); 
-            // setTimeout(()=>{setRound({userChoice: 0, opponentChoice: 0, winner: 4})}, 5000);
+             
+            //setTimeout(()=>{setRound({userChoice: 0, opponentChoice: 0, winner: 4})}, 5000);
         }
         
-    },[round]);
+    },[game, usersChoice, opponentsChoice]);
 
 
 
@@ -133,14 +137,16 @@ const Messenger: React.FC = () => {
         console.log(payload);
         var payloadData = JSON.parse(payload.body);
         if (privateChats.get(payloadData.senderName)) {
+            console.log("if this happened." + usersChoice + " "+ opponentsChoice);
             privateChats.get(payloadData.senderName).push(payloadData);
-            setRound({userChoice: round.userChoice, opponentChoice: parseInt(payloadData.message), winner: 4});
+            setOpponentChoice(parseInt(payloadData.message));
             setPrivateChats(new Map(privateChats));
+            console.log("after this happened." + usersChoice + " "+ opponentsChoice);
 
         } else {
             let list = [];
             list.push(payloadData);
-            setRound({userChoice: round.userChoice, opponentChoice: parseInt(payloadData.message), winner: 4});
+            setOpponentChoice(parseInt(payloadData.message));
             privateChats.set(payloadData.senderName, list);
             setPrivateChats(new Map(privateChats));
         }
@@ -194,7 +200,7 @@ const Messenger: React.FC = () => {
             }
             stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
             setUserData({ ...userData, "message": "" });
-            setRound({userChoice: parseInt(chatMessage.message), opponentChoice: round.opponentChoice, winner: 4});
+            setUserChoice(parseInt(chatMessage.message));
         }
     }
     // const handleUsername = (event: { target: { value: any; }; }) => {
@@ -278,7 +284,7 @@ const Messenger: React.FC = () => {
                                 </li>
                             ))}
                         </ul>
-                        {round.userChoice === 0 && 
+                        {usersChoice === 0 && 
         <>
         <h1>CHOOSE!</h1>
         <table className="table">
@@ -301,9 +307,9 @@ const Messenger: React.FC = () => {
                 :
                 <button className={(!showInput && showSupport) ? "showConnect" : "hideConnect"} onClick={showConnect}>Multi-Player</button>
             }
-            {round.userChoice !== 0 && round.opponentChoice !== 0 && round.winner !==4?
-            <>{console.log(round)}
-            <Result {...round}/></>
+            {game.userChoice !== 0 && game.opponentChoice !== 0 && game.winner !==4?
+            <>{console.log(game.userChoice +" "+ game.opponentChoice +" "+ game.winner)}
+            <Result {...game}/></>
             :<></>}
             <>
            
