@@ -251,6 +251,18 @@ const Messenger: React.FC = () => {
         }
         return thisRound;
     }
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) =>{
+        if(event.currentTarget.id === "1"){
+          console.log("Play again button has been clicked");
+          dispatch(opponentMove({userChoice: 0, opponentChoice: 0, winner: 4}));
+          setUserChoice(0);
+          setOpponentChoice(0);
+          count = true;
+        }
+        else {console.log("Something went horribly wrong")};
+       };
+
     return (
         <div className="container">
             {userData.connected ?
@@ -311,7 +323,8 @@ const Messenger: React.FC = () => {
             }
             {game.userChoice !== 0 && game.opponentChoice !== 0 && game.winner !==4?
             <>{console.log(game.userChoice +" "+ game.opponentChoice +" "+ game.winner)}
-            <Result {...game}/></>
+            <Result {...game}/>
+            <button id = "1" onClick={handleClick}>Play Again</button></>
             :<></>}
             <>
            

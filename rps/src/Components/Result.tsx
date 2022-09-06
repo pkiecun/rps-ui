@@ -28,10 +28,10 @@ export const Result: React.FC<IRound> = (round: IRound) => {
   
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) =>{
       if(event.currentTarget.id === "0"){
+        console.log("Home button has been clicked");
         dispatch(opponentMove({userChoice: 0, opponentChoice: 0, winner: 4}));
       navigate("/");
-      }
-     };
+      }};
 
     const displayResult = (round: IRound) => {
         if(round.winner === 0){
@@ -56,6 +56,7 @@ export const Result: React.FC<IRound> = (round: IRound) => {
         {round.opponentChoice === 2? <img className="image" src={PaperP2} alt="picOfPaper"/> : <></>}
         {round.opponentChoice === 3? <img className="image" src={ScissorsP2} alt="picOfScissors"/> : <></>}
         <button id = "0" onClick={handleClick}>Home</button>
+        
         </>
     )
 
