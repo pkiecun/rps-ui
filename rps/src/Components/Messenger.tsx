@@ -35,7 +35,9 @@ const Messenger: React.FC = () => {
     });
     const dispatch:AppDispatch = useDispatch();
 
+
     useEffect(()=>{
+        if(!userData.connected){showConnect()}
         console.log(game.winner + " " + count + " " + usersChoice);
         if(usersChoice !== 0 && opponentsChoice !== 0 && game.userChoice === 0 && game.opponentChoice === 0 && count){
             let neo = chooseWinner({userChoice: usersChoice, opponentChoice: opponentsChoice, winner: 0});
@@ -45,7 +47,7 @@ const Messenger: React.FC = () => {
             //setTimeout(()=>{setRound({userChoice: 0, opponentChoice: 0, winner: 4})}, 5000);
         }
         
-    },[game, usersChoice, opponentsChoice]);
+    },[game, usersChoice, opponentsChoice, userData.connected]);
 
 
 
@@ -305,7 +307,7 @@ const Messenger: React.FC = () => {
                     </div>}
                 </div>
                 :
-                <button className={(!showInput && showSupport) ? "showConnect" : "hideConnect"} onClick={showConnect}>Multi-Player</button>
+                <button id= "joining" className={(!showInput && showSupport) ? "showConnect" : "hideConnect"} onClick={showConnect}>Multi-Player</button>
             }
             {game.userChoice !== 0 && game.opponentChoice !== 0 && game.winner !==4?
             <>{console.log(game.userChoice +" "+ game.opponentChoice +" "+ game.winner)}
