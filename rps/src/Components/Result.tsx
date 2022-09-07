@@ -12,6 +12,16 @@ import { AppDispatch } from '../Store';
 import { opponentMove } from '../Slices/GameSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../Store";
+import styled, { keyframes } from 'styled-components';
+import { bounce } from 'react-animations';
+
+
+const bounceAnimation = keyframes`${bounce}`;
+
+const BouncyDiv = styled.div`
+      animation: 3s ${bounceAnimation};
+      animation-iteration-count: infinite;
+    `;
 
 
 export const Result: React.FC<IRound> = (round: IRound) => {
@@ -48,14 +58,18 @@ export const Result: React.FC<IRound> = (round: IRound) => {
 
     return(
         <>
+        <div className="overall">
         <h1 className="win-status">{winner}</h1>
-        {round.userChoice === 1? <img className="image" src={RockP1} alt="picOfRock"/> : <></>}
-        {round.userChoice === 2? <img className="image" src={PaperP1} alt="picOfPaper"/> : <></>}
-        {round.userChoice === 3? <img className="image" src={ScissorsP1} alt="picOfScissors"/> : <></>}
-        {round.opponentChoice === 1? <img className="image" src={RockP2} alt="picOfRock"/> : <></>}
-        {round.opponentChoice === 2? <img className="image" src={PaperP2} alt="picOfPaper"/> : <></>}
-        {round.opponentChoice === 3? <img className="image" src={ScissorsP2} alt="picOfScissors"/> : <></>}
+        <BouncyDiv className="res-container">
+        {round.userChoice === 1? <img className="res-img" src={RockP1} alt="picOfRock"/> : <></>}
+        {round.userChoice === 2? <img className="res-img" src={PaperP1} alt="picOfPaper"/> : <></>}
+        {round.userChoice === 3? <img className="res-img" src={ScissorsP1} alt="picOfScissors"/> : <></>}
+        {round.opponentChoice === 1? <img className="res-img" src={RockP2} alt="picOfRock"/> : <></>}
+        {round.opponentChoice === 2? <img className="res-img" src={PaperP2} alt="picOfPaper"/> : <></>}
+        {round.opponentChoice === 3? <img className="res-img" src={ScissorsP2} alt="picOfScissors"/> : <></>}
+        </BouncyDiv>
         <button id = "0" onClick={handleClick}>Home</button>
+        </div>
         </>
     )
 

@@ -1,8 +1,9 @@
-.result-page{
+.overall{
     display: flex;
     position: relative;
     flex-direction: column;
     justify-content: center;
+    text-align: center;
 }
 
 
@@ -11,4 +12,46 @@
     position: relative;
     justify-content: center;
     flex-direction: row;
+}
+
+
+
+
+.rock {
+    height: 150px;
+    width: 150px;
+    margin: 20px;
+    background-color: white;
+    
+} 
+
+.paper {
+    height: 150px;
+    width: 150px;
+    margin: 20px;
+    background-color: white;
+} 
+
+.scissors {
+    height: 150px;
+    width: 150px;
+    margin: 20px;
+    background-color: white;
+} 
+
+.res-img {
+    /* height: 100px;
+    width: 100px; */
+    height: 100px;
+    width: 100px;
+}
+
+.res-container{
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin-top: 40px;
+    align-items: center;
+    justify-content: center;
 }
