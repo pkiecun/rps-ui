@@ -65,16 +65,6 @@ export const Result: React.FC<IRound> = (round: IRound) => {
         <>
         <div className="overall">
         <h1 className="win-status">{winner}</h1>
-<<<<<<< HEAD
-        {round.userChoice === 1? <img className="image" src={RockP1} alt="picOfRock"/> : <></>}
-        {round.userChoice === 2? <img className="image" src={PaperP1} alt="picOfPaper"/> : <></>}
-        {round.userChoice === 3? <img className="image" src={ScissorsP1} alt="picOfScissors"/> : <></>}
-        {round.opponentChoice === 1? <img className="image" src={RockP2} alt="picOfRock"/> : <></>}
-        {round.opponentChoice === 2? <img className="image" src={PaperP2} alt="picOfPaper"/> : <></>}
-        {round.opponentChoice === 3? <img className="image" src={ScissorsP2} alt="picOfScissors"/> : <></>}
-        <button id = "0" onClick={handleClick}>Home</button>
-        
-=======
         <div className="super-container">
         <BouncyDiv className="res-container">
         {round.userChoice === 1? <img className="res-img" src={RockP1} alt="picOfRock"/> : <></>}
@@ -89,7 +79,6 @@ export const Result: React.FC<IRound> = (round: IRound) => {
         </div>
         <button id = "0" className= "home-btn" onClick={handleClick}>Home</button>
         </div>
->>>>>>> animations
         </>
     )
 
