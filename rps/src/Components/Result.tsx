@@ -77,7 +77,7 @@ export const Result: React.FC<IRound> = (round: IRound) => {
         {round.opponentChoice === 3? <img className="res-img2" src={ScissorsP2} alt="picOfScissors"/> : <></>}
         </BouncyDiv2>
         </div>
-        <button id = "0" onClick={handleClick}>Home</button>
+        <button id = "0" className= "home-btn" onClick={handleClick}>Home</button>
         </div>
         </>
     )

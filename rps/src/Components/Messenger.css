@@ -36,7 +36,7 @@
 
 .rock:focus{   
     animation-name: player1A;
-    animation-duration: 1s;
+    animation-duration: 1.5s;
     position: relative;
     animation-iteration-count: infinite;
 
@@ -44,7 +44,7 @@
 
 .paper:focus{   
     animation-name: player1A;
-    animation-duration: 1s;
+    animation-duration: 1.5s;
     position: relative;
     animation-iteration-count: infinite;
 
@@ -52,7 +52,7 @@
 
 .scissors:focus{   
     animation-name: player1A;
-    animation-duration: 1s;
+    animation-duration: 1.5s;
     position: relative;
     animation-iteration-count: infinite;
 

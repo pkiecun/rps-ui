@@ -39,13 +39,19 @@
     background-color: white;
 } 
 
+.home-btn{
+    height: 40px;
+    width: 80px;
+    justify-self: center;
+}
+
 .res-img {
     /* height: 100px;
     width: 100px; */
     height: 100px;
     width: 100px;
     animation-name: player1A;
-    animation-duration: 2s;
+    animation-duration: 2.3s;
     position: relative;
     animation-iteration-count: infinite;
     margin-right: 20px;
@@ -58,7 +64,7 @@
     height: 100px;
     width: 100px;
     animation-name: player2A;
-    animation-duration: 2s;
+    animation-duration: 2.3s;
     position: relative;
     animation-iteration-count: infinite;
     margin-left: 20px;
@@ -71,7 +77,6 @@
     display: flex;
     flex-direction: row;
     position: relative;
-    margin-top: 40px;
     align-items: center;
     justify-content: center;
 }
@@ -87,9 +92,9 @@
 }
 
 @keyframes player1A {
-    50% {transform: rotate(-90deg);}
+   50%{transform: rotate(-80deg);}
 }
 
 @keyframes player2A {
-    50% {transform: rotate(90deg);}
+    50%{transform: rotate(80deg);}
 }
