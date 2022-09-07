@@ -1,0 +1,72 @@
+.container{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.rock {
+    height: 150px;
+    width: 150px;
+    margin: 20px;
+    background-color: white;
+    
+} 
+
+.paper {
+    height: 150px;
+    width: 150px;
+    margin: 20px;
+    background-color: white;
+} 
+
+.scissors {
+    height: 150px;
+    width: 150px;
+    margin: 20px;
+    background-color: white;
+} 
+
+.image {
+    /* height: 100px;
+    width: 100px; */
+    height: 100%;
+    width: 100%;
+}
+
+.rock:focus{   
+    animation-name: player1A;
+    animation-duration: 1.5s;
+    position: relative;
+    animation-iteration-count: infinite;
+
+}
+
+.paper:focus{   
+    animation-name: player1A;
+    animation-duration: 1.5s;
+    position: relative;
+    animation-iteration-count: infinite;
+
+}
+
+.scissors:focus{   
+    animation-name: player1A;
+    animation-duration: 1.5s;
+    position: relative;
+    animation-iteration-count: infinite;
+
+}
+
+@keyframes player1A {
+    50% {transform: rotate(-80deg);}
+}
+
+.bounce{
+    height: 125px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin-top: 40px;
+    left: 30vw;
+}

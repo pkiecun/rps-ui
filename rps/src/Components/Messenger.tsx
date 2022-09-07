@@ -1,17 +1,28 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
+import { bounce } from 'react-animations';
 import { Client, over } from 'stompjs';
 import SockJS from 'sockjs-client';
 import { RootState } from "../Store";
 import { useDispatch, useSelector } from 'react-redux';
 import RockP1 from "../Images/RockP1.jpg";
+import RockP2 from "../Images/RockP2.jpg";
 import PaperP1 from "../Images/PaperP1.jpg";
 import ScissorsP1 from "../Images/ScissorsP1.jpg";
 import { IRound } from "../Interfaces/IRound";
-import { MultiGame } from './MultiGame';
 import { Result } from './Result';
 import { useNavigate } from 'react-router-dom';
 import { AppDispatch } from '../Store';
 import { opponentMove } from '../Slices/GameSlice';
+import './Messenger.css';
+
+
+const bounceAnimation = keyframes`${bounce}`;
+
+const BouncyDiv = styled.div`
+      animation: 2s ${bounceAnimation};
+      animation-iteration-count: infinite;
+    `;
 
 var stompClient: Client | null = null;
 const Messenger: React.FC = () => {
@@ -35,6 +46,7 @@ const Messenger: React.FC = () => {
     });
     const dispatch:AppDispatch = useDispatch();
 
+    
 
     useEffect(()=>{
         if(!userData.connected){showConnect()}
@@ -304,7 +316,7 @@ const Messenger: React.FC = () => {
         <table className="table">
           <thead>
             <tr>
-              <td><button  className="rock" value="1" onClick={handleMessage}><img className="image" src={RockP1} alt="picOfRock"/></button></td>
+              <td><button className="rock" value="1" onClick={handleMessage}><img className="image" src={RockP1} alt="picOfRock"/></button></td>
               <td><button className="paper" value="2" onClick={handleMessage}><img className="image" src={PaperP1} alt="picOfPaper"/></button></td>
               <td><button className="scissors" value="3" onClick={handleMessage}><img className="image" src={ScissorsP1} alt="picOfScissors"/></button></td>
             </tr>
@@ -320,6 +332,15 @@ const Messenger: React.FC = () => {
                 </div>
                 :
                 <button id= "joining" className={(!showInput && showSupport) ? "showConnect" : "hideConnect"} onClick={showConnect}>Multi-Player</button>
+            }
+            {usersChoice !== 0 && game.winner === 4 ? 
+            <BouncyDiv className='bounce'>
+            <div className='rock'><img className="image" src={RockP1} alt="picOfRock"/></div>
+            <div className='rock'><img className="image" src={RockP2} alt="picOfRockflipped"/></div>
+            </BouncyDiv>
+            :
+            /* nothing to show here */
+            <></>
             }
             {game.userChoice !== 0 && game.opponentChoice !== 0 && game.winner !==4?
             <>{console.log(game.userChoice +" "+ game.opponentChoice +" "+ game.winner)}
