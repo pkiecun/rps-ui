@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
+import { Navbar } from "./Navbar";
 // import { Result } from "./Result";
 // import RockP1 from "../Images/RockP1.jpg";
 // import PaperP1 from "../Images/PaperP1.jpg";
@@ -29,6 +30,7 @@ export const Home: React.FC = () => {
   return (
     <div className="wholePage">
           {/* <button onClick={enterQueue}>Multi</button> */}
+          {/* <Navbar/> */}
           <button id = "1" onClick={handleClick}>Solo</button>
           <button id = "2" onClick={handleClick}>Multi-player</button>
           {/* <Messenger/> */}

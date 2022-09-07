@@ -70,3 +70,7 @@
     margin-top: 40px;
     left: 30vw;
 }
+
+li{
+    list-style: none;
+}

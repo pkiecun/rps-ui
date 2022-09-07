@@ -1,0 +1,83 @@
+
+.navbar{
+    display: flex;
+    width: 100vw;
+    align-items: center;
+    position: sticky;
+    overflow: hidden;
+    top: 0;
+    z-index: 11;
+    background-color: #fff;
+    height: 45px;
+    box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.09);
+}
+
+.nameImg{
+    display: flex;
+    position: relative;
+    left: 13%;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+}
+
+.searchBar{
+    position: absolute;
+    display: flex;
+    margin: 0 auto;
+    font-weight: 600;
+    left: 37.5%;
+    box-sizing: border-box;
+    background: #FAFAFA;
+    cursor: pointer;
+}
+
+/* .searchBar::placeholder{
+    color: #999;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 14px;
+    display: flex;
+    text-align: center;
+} */
+
+.profileImg{
+    display: flex;
+    position: absolute;
+    right: 100px;
+    top: 5px;
+    height: 40px;
+    width: 40px;
+}
+
+.login-Button{
+    position: fixed;
+    background-color: #fff;
+    border: 1px solid #E6E6E6;
+    border-radius: 2px;
+    right: 100px;
+    top: 42px;
+    width: 102px;
+    height: 47px;
+    text-align: center;
+    z-index: 45;
+    cursor: pointer;
+}
+
+.loginText{
+    display: flex;
+    position: absolute;
+    align-self: center;
+    top: -3px;
+    left: 30px;
+}
+
+.logoutText{
+    display: flex;
+    position: absolute;
+    align-self: center;
+    top: -3px;
+    left: 27px;
+}
