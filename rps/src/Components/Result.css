@@ -44,7 +44,27 @@
     width: 100px; */
     height: 100px;
     width: 100px;
+    animation-name: player1A;
+    animation-duration: 2s;
+    position: relative;
+    animation-iteration-count: infinite;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
+
+.res-img2 {
+    /* height: 100px;
+    width: 100px; */
+    height: 100px;
+    width: 100px;
+    animation-name: player2A;
+    animation-duration: 2s;
+    position: relative;
+    animation-iteration-count: infinite;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
 
 .res-container{
     height: fit-content;
@@ -54,4 +74,22 @@
     margin-top: 40px;
     align-items: center;
     justify-content: center;
+}
+
+.super-container{
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin-top: 40px;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes player1A {
+    50% {transform: rotate(-90deg);}
+}
+
+@keyframes player2A {
+    50% {transform: rotate(90deg);}
 }

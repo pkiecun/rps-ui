@@ -13,14 +13,19 @@ import { opponentMove } from '../Slices/GameSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../Store";
 import styled, { keyframes } from 'styled-components';
-import { bounce } from 'react-animations';
+import { bounceOut, slideInLeft, slideInRight } from 'react-animations';
 
 
-const bounceAnimation = keyframes`${bounce}`;
+const bounceAnimation = keyframes`${slideInLeft}`;
+const bounceAnimation2 = keyframes`${slideInRight}`;
 
 const BouncyDiv = styled.div`
-      animation: 3s ${bounceAnimation};
-      animation-iteration-count: infinite;
+      animation: 2s ${bounceAnimation};
+      animation-iteration-count: 1;
+    `;
+const BouncyDiv2 = styled.div`
+      animation: 2s ${bounceAnimation2};
+      animation-iteration-count: 1;
     `;
 
 
@@ -60,14 +65,18 @@ export const Result: React.FC<IRound> = (round: IRound) => {
         <>
         <div className="overall">
         <h1 className="win-status">{winner}</h1>
+        <div className="super-container">
         <BouncyDiv className="res-container">
         {round.userChoice === 1? <img className="res-img" src={RockP1} alt="picOfRock"/> : <></>}
         {round.userChoice === 2? <img className="res-img" src={PaperP1} alt="picOfPaper"/> : <></>}
         {round.userChoice === 3? <img className="res-img" src={ScissorsP1} alt="picOfScissors"/> : <></>}
-        {round.opponentChoice === 1? <img className="res-img" src={RockP2} alt="picOfRock"/> : <></>}
-        {round.opponentChoice === 2? <img className="res-img" src={PaperP2} alt="picOfPaper"/> : <></>}
-        {round.opponentChoice === 3? <img className="res-img" src={ScissorsP2} alt="picOfScissors"/> : <></>}
         </BouncyDiv>
+        <BouncyDiv2 className="res-container">
+        {round.opponentChoice === 1? <img className="res-img2" src={RockP2} alt="picOfRock"/> : <></>}
+        {round.opponentChoice === 2? <img className="res-img2" src={PaperP2} alt="picOfPaper"/> : <></>}
+        {round.opponentChoice === 3? <img className="res-img2" src={ScissorsP2} alt="picOfScissors"/> : <></>}
+        </BouncyDiv2>
+        </div>
         <button id = "0" onClick={handleClick}>Home</button>
         </div>
         </>
