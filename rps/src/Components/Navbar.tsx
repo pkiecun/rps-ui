@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import RockP1 from '../Images/RockP1.jpg';
 import ScissorsP2 from '../Images/ScissorsP2.jpg';
+import { apiLogout, apiValidateLogin } from "../Slices/LoginSlice";
 import './Navbar.css';
 
 export const Navbar: React.FC = () => {
 
     const Navigator = useNavigate();
-    const [isHovering, setIsHovering] = useState(false);
+    const [isHovering, setIsHovering] = useState<boolean>(false);
     const location = useLocation();
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useState<boolean>(false);
     const handleMouseOver = () => {setIsHovering(true);};  
     const handleMouseOut = () => {setIsHovering(false);};
         
@@ -17,28 +18,33 @@ export const Navbar: React.FC = () => {
         if(event.currentTarget.id === "nameImg"){
             Navigator('/');
         }
-        // if(event.currentTarget.id === "loginText"){
-        //     //Navigator('/login');
-        // }
-        // if(event.currentTarget.id === "logoutText"){
-        //     //handle logout
-        // }
+        if(event.currentTarget.id === "loginText"){
+             Navigator('/login');
+        }
+        if(event.currentTarget.id === "logoutText"){
+            apiLogout(localStorage.getItem("token"));
+            localStorage.clear();
+            window.location.reload();
+
+        }
 
         
     }
 
     useEffect(() => {
-        // if invalid token, redirect to login
-        // apiValidateLogin(localStorage.getItem("token")).then(result => {
-        //     if(result){
-        //         setLoggedIn(result)
-        //     }}) 
-        //     .catch(error=>{
-        //         localStorage.setItem("token", null);
-        //         //Navigator('/login')
-        // });
-                // eslint-disable-next-line
-        }, [loggedIn])
+        //if invalid token, redirect to login
+        apiValidateLogin(localStorage.getItem("token")).then(result => {
+            if(result.payload){
+                setLoggedIn(result.payload);
+                console.log();
+            }}) 
+            .catch(error=>{
+                localStorage.setItem("token", "null");
+                //Navigator('/login')
+                console.log(error);
+        });
+               
+        }, [localStorage.getItem("token")])
 
     return(
         <div className = "navbar">
@@ -49,7 +55,7 @@ export const Navbar: React.FC = () => {
             <div >
                 <img className = "profileImg" id = "profileImg" src = {ScissorsP2} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} alt = "profile-icon"/>
                  <div className = "login-Button" id = "login" style={{display: isHovering ? 'block' : 'none' }} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} >
-                     {loggedIn ? <p className = "logoutText" title="logout" id="logout" onClick={handleClick}>Logout</p> : <p className = "loginText" onClick={handleClick}>Login</p>}
+                     {loggedIn ? <p className = "logoutText" title="logout" id="logoutText" onClick={handleClick}>Logout</p> : <p className = "loginText" id="loginText" onClick={handleClick}>Login</p>}
                 </div>
             </div>
             </>

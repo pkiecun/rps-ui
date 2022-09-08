@@ -1,0 +1,167 @@
+.login{
+    margin: 148px auto;
+
+    width: 616px;
+    height: 587px;
+    
+    background: #FFFFFF;
+    border: 1px solid #E6E6E6;
+    border-radius: 2px;
+
+    display: grid;
+    justify-content: center;
+}
+
+.loginHeader{
+    display: flex;
+    justify-content: right;
+}
+.pixelgramLogo{
+    margin-top: 64px;
+    margin-right: 26px;
+}
+
+.vertBar{
+  width: 0.92px;
+  height: 45px;
+  margin-top: 69px;
+  margin-right: 20.08px;
+  background-color: #2A2A2A;
+}
+
+.loginTitle{
+    width: 95px;
+    height: 46px;
+    margin-top: 71px;
+    margin-right: 211px; 
+
+    font-family: 'Billabong', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 45px;
+    line-height: 100%;
+
+    letter-spacing: 0.025em;
+
+    color: #262626;
+}
+
+.loginForm{
+    display: grid;
+    justify-content: left;   
+}
+
+.usernameContainer{
+    height: 155px;
+    position: relative;
+}
+.noUsernameError-container{
+    height: 43px;
+}
+
+.noUsernameError{
+    color: #CB5B5B;
+    margin-top: 9px;
+    margin-left: 44px;
+}
+
+
+.noPasswordError{
+    margin-top: 8px;
+    margin-left: 44px;
+
+    color: #CB5B5B;
+}
+
+.usernameTextbox{
+    width: 524px;
+    height: 57px;
+    padding-left: 18px;
+
+    position: absolute;
+    bottom: 0;
+    left: 44px;
+
+    background-color: #FAFAFA;
+    border: 1px solid #DBDBDB;
+    border-radius: 3px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 100%;
+    letter-spacing: 0.025em;
+
+}
+
+.passwordContainer{
+    height: 100px;
+    position: relative;
+}
+
+
+.passwordTextbox{
+    width: 524px;
+    height: 57px;
+    padding-left: 18px;
+
+    position: absolute;
+    left: 44px;
+    right: 44px;
+    bottom: 0;
+
+    background-color: #FAFAFA;
+    border: 1px solid #DBDBDB;
+    border-radius: 3px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 100%;
+    letter-spacing: 0.025em;
+
+}
+
+::placeholder{
+    color: #E6E6E6;
+}
+
+.loginFooter{
+    width: 616px;
+    height: 215px;
+    position: relative;
+}
+
+.incorrectLogin{
+    color: #CB5B5B;
+    position: absolute;
+    top: 47px;
+    left: 44px;
+}
+
+.loginButton{
+    position: absolute;
+    top: 73px;
+    left: 450px;
+    cursor: pointer;
+    width: 118px;
+    height: 45px;
+
+    /* font-family: 'Roboto', sans-serif; */
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 100%;
+
+    text-align: center;
+    letter-spacing: 0.025em;
+
+    color: #FFFEFE;
+
+    background: #5197E9;
+    border-radius: 3px;
+    border: 0;
+
+}
