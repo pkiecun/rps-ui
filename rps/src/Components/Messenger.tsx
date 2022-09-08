@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppDispatch } from '../Store';
 import { opponentMove } from '../Slices/GameSlice';
 import './Messenger.css';
+import { IMatch } from '../Interfaces/IMatch';
 
 
 const bounceAnimation = keyframes`${bounce}`;
@@ -27,7 +28,7 @@ const BouncyDiv = styled.div`
 var stompClient: Client | null = null;
 const Messenger: React.FC = () => {
     const [privateChats, setPrivateChats] = useState(new Map());
-    const [publicChats, setPublicChats] = useState([]);
+    const [publicChats, setPublicChats] = useState(new Map());
     const [tab, setTab] = useState("CHATROOM");
     const [showInput, setShowInput] = useState(false);
     const [showSupport, setShowSupport] = useState(true);
@@ -41,7 +42,7 @@ const Messenger: React.FC = () => {
         username: '',
         receivername: '',
         connected: false,
-        message: '0',
+        message: {limit: 0, count: 0, move: 0},
         admin: false
     });
     const dispatch:AppDispatch = useDispatch();
@@ -50,7 +51,6 @@ const Messenger: React.FC = () => {
 
     useEffect(()=>{
         if(!userData.connected){showConnect()}
-        console.log(game.winner + " " + count + " " + usersChoice);
         if(usersChoice !== 0 && opponentsChoice !== 0 && game.userChoice === 0 && game.opponentChoice === 0 && count){
             let neo = chooseWinner({userChoice: usersChoice, opponentChoice: opponentsChoice, winner: 0});
             dispatch(opponentMove(neo));
@@ -76,6 +76,7 @@ const Messenger: React.FC = () => {
                 connect();
             }
          else { //error handling for api call
+            console.log(userData.connected + "new attempt");
             userData.username = userName.name + Date.now();
             connect();
         };
@@ -108,15 +109,15 @@ const Messenger: React.FC = () => {
             status: "JOIN"
         };
 
-        var welcomeMsg = {
-            senderName: "Admin",
-            receiverName: userData.username,
-            message: "Welcome " + userData.username + ". How can we help you?",
-            status: "MESSAGE"
-        };
+        // var welcomeMsg = {
+        //     senderName: "Admin",
+        //     receiverName: userData.username,
+        //     message: {},
+        //     status: "MESSAGE"
+        // };
 
         if (stompClient) {
-            console.log("joined chat");
+            // console.log("joined chat");
             stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
 
             // if (!userData.admin) {
@@ -135,14 +136,20 @@ const Messenger: React.FC = () => {
         let payloadData = JSON.parse(payload.body);
         switch (payloadData.status) {
             case "JOIN":
-                if (!privateChats.get(payloadData.senderName)) {
-                    privateChats.set(payloadData.senderName, []);
-                    setPrivateChats(new Map(privateChats));
+                console.log(publicChats);
+                 if (!publicChats.get(payloadData.senderName)) {
+                     publicChats.set(payloadData.senderName, []);
+                     setPublicChats(new Map(publicChats));
+                    //  privateChats.set(payloadData.senderName, []);
+                    //  setPrivateChats(new Map(privateChats));
+                    // let startingList = publicChats;
+                    // startingList.push(payloadData.senderName);
+                    // setPublicChats(startingList);
                     userJoin();
-                }
+                 }
                 break;
             case "MESSAGE":
-                setPublicChats([...publicChats]);
+                // setPublicChats([...publicChats]);
                 break;
         }
     }
@@ -152,18 +159,26 @@ const Messenger: React.FC = () => {
         console.log(payload);
         var payloadData = JSON.parse(payload.body);
         if (privateChats.get(payloadData.senderName)) {
-            console.log("if this happened." + usersChoice + " "+ opponentsChoice);
             privateChats.get(payloadData.senderName).push(payloadData);
-            setOpponentChoice(parseInt(payloadData.message));
+            setOpponentChoice(payloadData.message.move);
+            console.log(userData.connected);
+            setUserData({ ...userData, "message": {limit: payloadData.message.limit, count:payloadData.message.count, move: userData.message.move} });
+            console.log(userData.connected);
             setPrivateChats(new Map(privateChats));
-            console.log("after this happened." + usersChoice + " "+ opponentsChoice);
-
+            publicChats.delete(payloadData.senderName);
+            setPublicChats(new Map(publicChats));
         } else {
             let list = [];
             list.push(payloadData);
-            setOpponentChoice(parseInt(payloadData.message));
+            setOpponentChoice(payloadData.message.move);
+            console.log(userData.connected);
+            setUserData({ ...userData, "message": {limit: payloadData.message.limit, count:payloadData.message.count, move: userData.message.move} });
+            console.log(userData.connected);
             privateChats.set(payloadData.senderName, list);
             setPrivateChats(new Map(privateChats));
+            publicChats.delete(payloadData.senderName);
+            setPublicChats(new Map(publicChats));
+
         }
     }
 
@@ -174,7 +189,9 @@ const Messenger: React.FC = () => {
 
     const handleMessage =  async (event: React.MouseEvent<HTMLButtonElement>) => {
         const  value  = event.currentTarget.value;
-        setUserData({ ...userData, "message": value });
+        console.log(userData.connected);
+        setUserData({ ...userData, message: {limit:userData.message.limit, count: userData.message.count, move: parseInt(value)}});
+        console.log(userData.connected);
     }
 
     // const keyPress = (e: any) => {
@@ -214,8 +231,10 @@ const Messenger: React.FC = () => {
                 setPrivateChats(new Map(privateChats));
             }
             stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
-            setUserData({ ...userData, "message": "" });
-            setUserChoice(parseInt(chatMessage.message));
+            console.log(userData.connected);
+            setUserData({ ...userData, "message": {limit: 0, count: 0, move: 0} });
+            console.log(userData.connected);
+            setUserChoice(chatMessage.message.move);
         }
     }
     // const handleUsername = (event: { target: { value: any; }; }) => {
@@ -266,7 +285,6 @@ const Messenger: React.FC = () => {
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) =>{
         if(event.currentTarget.id === "1"){
-          console.log("Play again button has been clicked");
           dispatch(opponentMove({userChoice: 0, opponentChoice: 0, winner: 4}));
           setUserChoice(0);
           setOpponentChoice(0);
@@ -274,18 +292,34 @@ const Messenger: React.FC = () => {
         }
         else {console.log("Something went horribly wrong")};
        };
+    
+       const firstSignal = (event: React.MouseEvent<HTMLElement>) =>{
+        setTab(event.currentTarget.id);
+        privateChats.set(event.currentTarget.id, []);
+        setPrivateChats(new Map(privateChats));
+       };
 
     return (
         <div className="container">
             {userData.connected ?
                 <div className="chat-box">
+                        <div className="public-list">
+                            <ul>
+                                {[...publicChats.keys()].slice(1).map((name,index) => (  
+                                        <li onClick={firstSignal} className={`member ${tab === name && "active"}`} key={index} id={name}>{name}</li>     
+                                    )
+                                    )}
+                            </ul>
+                        </div>
 
                     
                         <div className="member-list">
+                            <h3>In Game</h3>
                             <ul>
-                                {[...privateChats.keys()].slice(1).map((name, index) => (
+                                {[...privateChats.keys()].map((name, index) => (
                                         <li onClick={() => { setTab(name) }} className={`member ${tab === name && "active"}`} key={index}>{name}</li>     
-                                ))}
+                                    )
+                                    )}
                             </ul>
                         </div>
                     
@@ -310,7 +344,23 @@ const Messenger: React.FC = () => {
                                 </li>
                             ))}
                         </ul>
-                        {usersChoice === 0 && 
+                        {userData.message.limit === 0 &&
+                        <>
+                        <h1>How many rounds?</h1>
+                        <table className="table">
+                          <thead>
+                            <tr>
+                              <td><button className="rock" value="1" onClick={()=>{setUserData({ ...userData, "message": {limit: 1, count: 0, move: 0} })}}>single game</button></td>
+                              <td><button className="paper" value="2" onClick={()=>{setUserData({ ...userData, "message": {limit: 3, count: 0, move: 0} })}}>best of three</button></td>
+                              <td><button className="scissors" value="3" onClick={()=>{setUserData({ ...userData, "message": {limit: 5, count: 0, move: 0} })}}>best of five</button></td>
+                            </tr>
+                          </thead>
+                        </table> 
+                        <div className="send-message">
+                                            {/* <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} onKeyPress={(e) => keyPress(e)} /> */}
+                                            <button type="button" className="send-button" onClick={sendPrivateValue}>Send</button>
+                                        </div></>}
+                        {usersChoice === 0 && userData.message.limit !== 0 &&
         <>
         <h1>CHOOSE!</h1>
         <table className="table">
