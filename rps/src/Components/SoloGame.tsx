@@ -84,7 +84,7 @@ export const SoloGame: React.FC = () => {
   // }
 
   return (
-    <div className="wholePage">
+    <div className="solo-container">
       <div className="result-page" title ="result-page">
         <div className="wins-losses">
             <div className="wins">Wins
@@ -97,7 +97,7 @@ export const SoloGame: React.FC = () => {
       </div>
       {round.userChoice === 0 ? 
         <>
-        <h1>CHOOSE!</h1>
+        <h1 className="choose">CHOOSE!</h1>
         <table className="table">
           <thead>
             <tr>

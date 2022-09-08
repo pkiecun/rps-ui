@@ -74,3 +74,49 @@
 li{
     list-style: none;
 }
+
+.send-button {
+    height: 35px;
+    width: 200px;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+    background-color: rgb(245, 245, 245);
+    cursor: pointer;
+    top: 20px;
+    position: relative;
+}
+
+.chat-close {
+    height: 25px;
+    width: 75px;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+    background-color: rgb(245, 245, 245);
+    cursor: pointer;
+    transition: .25s ease-out;
+}
+
+.chat-close:hover {
+    transition: .35s ease-in;
+    background-color: black;
+    color: whitesmoke;
+}
+
+.play-again {
+    height: 35px;
+    width: 200px;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+    background-color: rgb(245, 245, 245);
+    cursor: pointer;
+    transition: .35s ease-out;
+}
+
+.play-again:hover{
+    transition: .35s ease-in;
+    background-color: black;
+    color: whitesmoke;
+}

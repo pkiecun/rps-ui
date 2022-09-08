@@ -1,19 +1,54 @@
 
 .wholePage {
     display: flex;
+    position: relative;
     flex-direction: row;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
 }
 
 .solo {
-    width: 55px;
+    margin-right: 10px;
+    display: block;
+    position: relative;
+    border: 1px solid lightgray;
+    color: black;
+    cursor: pointer;
+    border-radius: 10px;
+    width: 95px;
     height: 35px;
-    margin-top: 20vh;
+    top: 40vh;
+    background-color: rgb(245, 245, 245);
+    transition: .35s ease-out;
+}
+
+.solo:hover{
+    transition: .35s ease-in;
+    background-color: black;
+    color: whitesmoke;
 }
 
 .multi {
-    width: 55px;
+    margin-left: 10px;
+    display: block;
+    position: relative;
+    width: 95px;
     height: 35px;
+    border: 1px solid lightgray;
+    cursor: pointer;
+    color: black;
+    border-radius: 10px;
+    top: 40vh;
+    background-color: rgb(245, 245, 245);
+    transition: .35s ease-out;
+}
+
+.multi:hover{
+    transition: .35s ease-in;
+    background-color: black;
+    color: whitesmoke;
 }

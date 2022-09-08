@@ -292,7 +292,7 @@ const Messenger: React.FC = () => {
 
                     {tab !== "CHATROOM" && <div className="chat-content">
 
-                        <button type="button" className='chat-close' onClick={closeChatBox}>X</button>
+                        {showInput ? <button type="button" className='chat-close' onClick={closeChatBox}>Close</button> : <button type="button" className='chat-close' onClick={closeChatBox}>Open</button> }
                         <ul className="chat-messages">
                             {[...privateChats.get(tab)].map((chat, index) => (
                                 <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
@@ -324,7 +324,7 @@ const Messenger: React.FC = () => {
         </table> 
         <div className="send-message">
                             {/* <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} onKeyPress={(e) => keyPress(e)} /> */}
-                            <button type="button" className="send-button" onClick={sendPrivateValue}>Send</button>
+                            <button type="button" className="send-button" onClick={sendPrivateValue}>RoShamBo!</button>
                         </div>
           </>} 
                         
@@ -345,7 +345,7 @@ const Messenger: React.FC = () => {
             {game.userChoice !== 0 && game.opponentChoice !== 0 && game.winner !==4?
             <>{console.log(game.userChoice +" "+ game.opponentChoice +" "+ game.winner)}
             <Result {...game}/>
-            <button id = "1" onClick={handleClick}>Play Again</button></>
+            <button className = "play-again" id = "1" onClick={handleClick}>Play Again</button></>
             :<></>}
             <>
            
