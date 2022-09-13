@@ -22,6 +22,7 @@
     width: 150px;
     margin: 20px;
     background-color: white;
+    border-radius: 10px;
     
 } 
 
@@ -30,6 +31,7 @@
     width: 150px;
     margin: 20px;
     background-color: white;
+    border-radius: 10px;
 } 
 
 .scissors {
@@ -37,12 +39,27 @@
     width: 150px;
     margin: 20px;
     background-color: white;
+    border-radius: 10px;
 } 
 
 .home-btn{
-    height: 40px;
-    width: 80px;
+    background-color: rgb(245, 245, 245);
+    height: 25px;
+    width: 70px;
     justify-self: center;
+    margin: 0 auto;
+    position: relative;
+    top: 100px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .25s ease-out;
+}
+
+.home-btn:hover{
+    transition: .25s ease-in;
+    background-color: black;
+    color: whitesmoke;
 }
 
 .res-img {
