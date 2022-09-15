@@ -8,7 +8,7 @@ import {BrowserRouter as Router} from "react-router-dom";
 
 
 test('renders app', () => {
-  renderWithProviders(<Router><SoloGame/></Router>);
+  renderWithProviders(<App/>);
   const divElement = screen.getByTitle("solo");
   expect(divElement).toBeInTheDocument();
 });

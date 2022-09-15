@@ -31,10 +31,6 @@ export const Register = () => {
                 // eslint-disable-next-line
         })},[]);
 
-    const handleSubmit1 = () => {
-        HandleRegister();
-    }
-
     const handleUsernameInput1 = event => {
         setUsername(event.target.value);
     }
@@ -100,7 +96,7 @@ export const Register = () => {
                 <div className="registerFooter" title="registerFooter">
                     <div className="noPasswordError" title="noPasswordError" type="text">{noPasswordError1}</div>
                     <div className="incorrectregister"  title="incorrectLoginError" type="text">{incorrect}</div> 
-                    <button className="registerButton" type="button" onClick={handleSubmit1}>Register</button> 
+                    <button className="registerButton" type="button" onClick={HandleRegister}>Register</button> 
                 </div>
             </div>
         </>

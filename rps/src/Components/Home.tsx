@@ -32,7 +32,7 @@ export const Home: React.FC = () => {
           {/* <button onClick={enterQueue}>Multi</button> */}
           {/* <Navbar/> */}
           <button className="solo" title="solo" id = "1" onClick={handleClick}>Solo</button>
-          <button className="multi" id = "2" onClick={handleClick}>Multi-player</button>
+          <button className="multi" title="multi" id = "2" onClick={handleClick}>Multi-player</button>
           {/* <Messenger/> */}
     </div>
   );

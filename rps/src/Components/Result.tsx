@@ -9,7 +9,7 @@ import PaperP2 from "../Images/PaperP2.jpg";
 import ScissorsP2 from "../Images/ScissorsP2.jpg";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from '../Store';
-import { opponentMove, endGame } from '../Slices/GameSlice';
+import { opponentMove } from '../Slices/GameSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../Store";
 import styled, { keyframes } from 'styled-components';
@@ -32,7 +32,7 @@ const BouncyDiv2 = styled.div`
 export const Result: React.FC<IRound> = (round: IRound) => {
     console.log(round);
     const [winner, setWinner] = useState<string>("");
-    const game = useSelector((state:RootState)=> state.game.game);
+    const game = useSelector((state:RootState)=> state.game.round);
     const dispatch:AppDispatch = useDispatch();
 
     useEffect(() => {
@@ -45,19 +45,11 @@ export const Result: React.FC<IRound> = (round: IRound) => {
       if(event.currentTarget.id === "0"){
         console.log("Home button has been clicked");
         dispatch(opponentMove({userChoice: 0, opponentChoice: 0, winner: 4}));
-      navigate("/");
+        navigate("/");
       }};
 
     const displayResult = (round: IRound) => {
-        if(game.wins > (game.matchTo / 2)){
-            setWinner("Game over: You Win!");
-            dispatch(endGame(true));
-        } 
-        else if(game.losses > (game.matchTo / 2)){
-            setWinner("Game over: you lose and are a loooossser");
-            dispatch(endGame(true));
-        }     
-        else if(round.winner === 0){
+        if(round.winner === 0){
             setWinner("tie"); 
         }
         else if(round.winner === 1){

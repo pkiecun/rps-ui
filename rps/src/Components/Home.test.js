@@ -7,13 +7,19 @@ import {BrowserRouter as Router} from "react-router-dom";
 import { renderWithProviders } from '../test-utils';
 
 
-test('result page testing', ()=>{
+test('solo btn works', ()=>{
     renderWithProviders(<Router><Home/></Router>);
-    const divElement = screen.getByTitle("result-page");
-    const hElement = screen.getByText("CHOOSE!");
-    expect(divElement).toBeInTheDocument();
-    expect(hElement).toBeInTheDocument();
+    const solo =  screen.getByTitle('solo');
+    fireEvent.click( solo);
+    const url = '/solo';
+    waitFor(()=>expect(window.location.pathname).toBe(url));
 });
 
-
+test('multi btn works', ()=>{
+    renderWithProviders(<Router><Home/></Router>);
+    const multi =  screen.getByTitle('multi');
+    fireEvent.click( multi);
+    const url = '/multi';
+    waitFor(()=>expect(window.location.pathname).toBe(url));
+});
 

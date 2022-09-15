@@ -1,7 +1,7 @@
 import "./Login.css";
 import logo from '../../image/pixelgram-logo.png';
 import React, {useEffect, useState} from "react";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { apiLogin, apiValidateLogin } from "../Slices/LoginSlice";
 import RockP1 from '../Images/RockP1.jpg';
 import { setUser } from "../Slices/LoginSlice";
@@ -108,6 +108,7 @@ export const Login: React.FC = () => {
                 <div className="loginFooter" title="loginFooter">
                     <div className="noPasswordError" title="noPasswordError">{noPasswordError}</div>
                     <div className="incorrectLogin"  title="incorrectLoginError" >{incorrectLogin}</div> 
+                    <Link className="register-button" to="/register">Register</Link> 
                     <button className="loginButton" type="button" onClick={handleSubmit}>Login</button> 
                 </div>
             </div>

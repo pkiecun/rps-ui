@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import RockP1 from '../Images/RockP1.jpg';
 import ScissorsP2 from '../Images/ScissorsP2.jpg';
-import { apiLogout, apiValidateLogin } from "../Slices/LoginSlice";
+import { apiLogout, apiValidateLogin, clearUser } from "../Slices/LoginSlice";
+import { AppDispatch } from "../Store";
 import './Navbar.css';
 
 export const Navbar: React.FC = () => {
@@ -13,6 +15,7 @@ export const Navbar: React.FC = () => {
     const [loggedIn, setLoggedIn] = useState<boolean>(false);
     const handleMouseOver = () => {setIsHovering(true);};  
     const handleMouseOut = () => {setIsHovering(false);};
+    const dispatch:AppDispatch = useDispatch();
         
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         if(event.currentTarget.id === "nameImg"){
@@ -24,6 +27,7 @@ export const Navbar: React.FC = () => {
         if(event.currentTarget.id === "logoutText"){
             apiLogout(localStorage.getItem("token"));
             localStorage.clear();
+            dispatch(clearUser());
             window.location.reload();
 
         }
@@ -41,7 +45,6 @@ export const Navbar: React.FC = () => {
             .catch(error=>{
                 localStorage.setItem("token", "null");
                 //Navigator('/login')
-                console.log(error);
         });
                
         }, [localStorage.getItem("token")])
@@ -54,8 +57,8 @@ export const Navbar: React.FC = () => {
              <h1 title = "searchBar" id='nameImg' className = "searchBar" onClick={handleClick}>Rock, Paper, Scissors!</h1>
             <div >
                 <img className = "profileImg" id = "profileImg" src = {ScissorsP2} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} alt = "profile-icon"/>
-                 <div className = "login-Button" id = "login" style={{display: isHovering ? 'block' : 'none' }} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} >
-                     {loggedIn ? <p className = "logoutText" title="logout" id="logoutText" onClick={handleClick}>Logout</p> : <p className = "loginText" id="loginText" onClick={handleClick}>Login</p>}
+                 <div className = "login-Button" title="hover"  id = "login" style={{display: isHovering ? 'block' : 'none' }} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} >
+                     {loggedIn ? <p className = "logoutText" title="logout" id="logoutText" onClick={handleClick}>Logout</p> : <p className = "loginText" title="login" id="loginText" onClick={handleClick}>Login</p>}
                 </div>
             </div>
             </>

@@ -53,9 +53,6 @@ export const GameSlice = createSlice({
       state.round = {userChoice: 0, opponentChoice: 0, winner: 4};
       state.game =  {matchTo: 0, wins: 0, losses: 0, gameOver: false};
     },
-    userMove: (state, action) =>{
-      state.round.userChoice = parseInt(action.payload);
-    },
     opponentMove: (state, action) =>{
       state.round = action.payload;
       if(action.payload.winner === 1){

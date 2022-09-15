@@ -6,26 +6,9 @@ import {BrowserRouter as Router} from "react-router-dom";
 import { Provider } from 'react-redux';
 import { AppStore } from '../Store';
 import { renderWithProviders } from '../test-utils';
-import { rest } from 'msw'
-import { setupServer } from 'msw/node';
+
 import {setRound} from './SoloGame'
 
-export const handlers = [
-    rest.get('http://localhost:8000/comp', (req, res, ctx) => {
-      return res(ctx.json(2));
-    })
-  ]
-  
-  const server = setupServer(...handlers)
-  
-  // Enable API mocking before tests.
-  beforeAll(() => server.listen())
-  
-  // Reset any runtime request handlers we may add during the tests.
-  afterEach(() => server.resetHandlers())
-  
-  // Disable API mocking after the tests are done.
-  afterAll(() => server.close())
 
 
 test('button is on screen', ()=>{
