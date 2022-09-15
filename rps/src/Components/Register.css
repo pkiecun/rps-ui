@@ -1,0 +1,175 @@
+@import url('http://fonts.cdnfonts.com/css/billabong');
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+.register1{
+    margin: 148px auto;
+
+    width: 616px;
+    height: 587px;
+    
+    background: #FFFFFF;
+    border: 1px solid #E6E6E6;
+    border-radius: 2px;
+
+    display: grid;
+    justify-content: center;
+}
+
+.registerHeader1{
+    display: flex;
+    justify-content: right;
+}
+.pixelgramLogo1{
+    margin-top: 64px;
+    margin-right: 26px;
+}
+
+.vertBar1{
+  width: 0.92px;
+  height: 45px;
+  margin-top: 69px;
+  margin-right: 20.08px;
+  background-color: #2A2A2A;
+}
+
+.registerTitle1{
+    width: 95px;
+    height: 46px;
+    margin-top: 71px;
+    margin-right: 211px; 
+
+    font-family: 'Billabong', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 45px;
+    line-height: 100%;
+
+    letter-spacing: 0.025em;
+
+    color: #262626;
+}
+
+.registerForm1{
+    display: grid;
+    justify-content: left;   
+}
+
+.usernameContainer1{
+    height: 155px;
+    position: relative;
+}
+.noUsernameError-container{
+    height: 43px;
+}
+
+.noUsernameError1{
+    color: #CB5B5B;
+    margin-top: 9px;
+    margin-left: 44px;
+}
+
+
+.noPasswordError1{
+    margin-top: 8px;
+    margin-left: 44px;
+
+    color: #CB5B5B;
+}
+
+.usernameTextbox1{
+    width: 524px;
+    height: 57px;
+    padding-left: 18px;
+
+    position: absolute;
+    bottom: 0;
+    left: 44px;
+
+    background-color: #FAFAFA;
+    border: 1px solid #DBDBDB;
+    border-radius: 3px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 100%;
+    letter-spacing: 0.025em;
+
+}
+
+.passwordContainer1{
+    height: 100px;
+    position: relative;
+}
+
+
+.passwordTextbox1{
+    width: 524px;
+    height: 57px;
+    padding-left: 18px;
+
+    position: absolute;
+    left: 44px;
+    right: 44px;
+    bottom: 0;
+
+    background-color: #FAFAFA;
+    border: 1px solid #DBDBDB;
+    border-radius: 3px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 100%;
+    letter-spacing: 0.025em;
+
+}
+
+::placeholder{
+    color: #E6E6E6;
+}
+
+.registerFooter{
+    width: 616px;
+    height: 215px;
+    position: relative;
+}
+
+.incorrectregister{
+    color: #CB5B5B;
+    position: absolute;
+    top: 47px;
+    left: 44px;
+}
+
+.registerButton{
+    position: absolute;
+    top: 73px;
+    left: 450px;
+    cursor: pointer;
+    width: 118px;
+    height: 45px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 100%;
+
+    text-align: center;
+    letter-spacing: 0.025em;
+
+    color: #FFFEFE;
+
+    background: #5197E9;
+    border-radius: 3px;
+    border: 0;
+
+}

@@ -33,8 +33,6 @@ export async function apiLogin(username:String, passphrase:String) {
     
 }
 
-
-
 //const baseURL = `${process.env.REACT_APP_AUTH_API_ENDPOINT}`;
 
 export async function apiValidateLogin(token:string|null) {
@@ -53,6 +51,25 @@ export async function apiLogout(token:string|null) {
         }});
     return {status: response.status};
 }
+
+export async function apiRegister(username: string, passphrase: string) {
+  const body = {username, passphrase}
+
+ return axios.post(`http://localhost:8000/user/register`, body).then(res => {
+     return {
+         status: res.status,
+         payload: {
+             token: res.data
+         }
+     }
+ })
+
+ // return{status: 202, payload: {
+ //     token: "Bearer Hello I am a token"
+ // }};
+ 
+}
+
 
 export const loginSlice = createSlice({
     name: "user",
