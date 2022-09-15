@@ -31,7 +31,7 @@ export const Home: React.FC = () => {
     <div className="wholePage">
           {/* <button onClick={enterQueue}>Multi</button> */}
           {/* <Navbar/> */}
-          <button className="solo" id = "1" onClick={handleClick}>Solo</button>
+          <button className="solo" title="solo" id = "1" onClick={handleClick}>Solo</button>
           <button className="multi" id = "2" onClick={handleClick}>Multi-player</button>
           {/* <Messenger/> */}
     </div>

@@ -88,10 +88,10 @@ export const SoloGame: React.FC = () => {
       <div className="result-page" title ="result-page">
         <div className="wins-losses">
             <div className="wins">Wins
-                <div className="win-count">{record.wins}</div>
+                <div title="record" className="win-count">{record.wins}</div>
             </div>
             <div className="losses">Losses
-                <div className="loss-count">{record.losses}</div>
+                <div title="record-loss" className="loss-count">{record.losses}</div>
             </div>
         </div>
       </div>
@@ -101,7 +101,7 @@ export const SoloGame: React.FC = () => {
         <table className="table">
           <thead>
             <tr>
-              <td><button  className="rock" value="1" onClick={handleUserChoice}><img className="image" src={RockP1} alt="picOfRock"/></button></td>
+              <td><button title="rock" className="rock" value="1" onClick={handleUserChoice}><img className="image" src={RockP1} alt="picOfRock"/></button></td>
               <td><button className="paper" value="2" onClick={handleUserChoice}><img className="image" src={PaperP1} alt="picOfPaper"/></button></td>
               <td><button className="scissors" value="3" onClick={handleUserChoice}><img className="image" src={ScissorsP1} alt="picOfScissors"/></button></td>
             </tr>
@@ -109,10 +109,11 @@ export const SoloGame: React.FC = () => {
         </table> 
         </>: <>
           <Result {...round}/>
-          <button className="play-again" value="0" onClick={handlePlayAgain}>Play Again</button>
+          <button className="play-again" title="play" value="0" onClick={handlePlayAgain}>Play Again</button>
           </>} 
           {/* <button onClick={navigate()}>Go Home</button> */}
           {/* <Messenger/> */}
     </div>
   );
 };
+
