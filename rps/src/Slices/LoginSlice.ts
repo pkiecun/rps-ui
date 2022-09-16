@@ -39,7 +39,7 @@ export async function apiValidateLogin(token:string|null) {
 
     const response = await axios.get(`http://localhost:8000/user/authenticate`, {
         headers: {
-          'Authorization': `${token}`
+          'token': `${token}`
         }});
     return {status: response.status, payload: Boolean(response.data)};
 }
@@ -47,7 +47,7 @@ export async function apiValidateLogin(token:string|null) {
 export async function apiLogout(token:string|null) {
     const response = await axios.get(`http://localhost:8000/user/logout`, {
         headers: {
-          'Authorization': `${token}`
+          'token': `${token}`
         }});
     return {status: response.status};
 }

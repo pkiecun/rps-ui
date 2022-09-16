@@ -87,6 +87,24 @@ li{
     position: relative;
 }
 
+.choose-next{
+    height: 35px;
+    width: 200px;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+    background-color: rgb(245, 245, 245);
+    cursor: pointer;
+    top: 20px;
+    position: relative;
+}
+
+.choose-next:hover{
+    transition: .35s ease-in;
+    background-color: black;
+    color: whitesmoke;
+}
+
 .chat-close {
     height: 25px;
     width: 75px;

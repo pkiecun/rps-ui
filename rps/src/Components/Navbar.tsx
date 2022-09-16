@@ -29,6 +29,7 @@ export const Navbar: React.FC = () => {
             localStorage.clear();
             dispatch(clearUser());
             window.location.reload();
+            setLoggedIn(false);
 
         }
 
@@ -38,9 +39,11 @@ export const Navbar: React.FC = () => {
     useEffect(() => {
         //if invalid token, redirect to login
         apiValidateLogin(localStorage.getItem("token")).then(result => {
+            console.log(result.payload);
             if(result.payload){
-                setLoggedIn(result.payload);
-                console.log();
+                setLoggedIn(true);
+                console.log(loggedIn);
+                
             }}) 
             .catch(error=>{
                 localStorage.setItem("token", "null");
