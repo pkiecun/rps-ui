@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import { AppStore } from '../Store';
 import { renderWithProviders } from '../test-utils';
 
-import {setRound} from './SoloGame'
 
 
 
@@ -34,7 +33,7 @@ test('three functions in one test loss', async ()=>{
   const oppMove = jest.fn();
   const chooseWinner = jest.fn();
   //const roundChange = jest.spyOn(React,'useState');
-  const roundChange = setRound as jest.Mock<setRound>;
+  const roundChange = setRound as jest.Mock<any>;
   roundChange.mockImplementationOnce((round:IRound)=> [{userChoice: 1, opponentChoice: 2, winner: 4}]);
   renderWithProviders(<Router><SoloGame/></Router>);
   const buttonElement = screen.getByAltText('picOfRock');
@@ -54,7 +53,7 @@ test('three functions in one test win', async ()=>{
   const oppMove = jest.fn();
   const chooseWinner = jest.fn();
   //const roundChange = jest.spyOn(React,'useState');
-  const roundChange = setRound as jest.Mock<setRound>;
+  const roundChange = setRound as jest.Mock<any>;
   roundChange.mockImplementationOnce((round:IRound)=> [{userChoice: 3, opponentChoice: 2, winner: 4}]);
   renderWithProviders(<Router><SoloGame/></Router>);
   const buttonElement = screen.getByAltText('picOfScissors');
@@ -72,7 +71,7 @@ test('three functions in one test tie', async ()=>{
   const oppMove = jest.fn();
   const chooseWinner = jest.fn();
   //const roundChange = jest.spyOn(React,'useState');
-  const roundChange = setRound as jest.Mock<setRound>;
+  const roundChange = setRound as jest.Mock<any>;
   roundChange.mockImplementationOnce((round:IRound)=> [{userChoice: 2, opponentChoice: 2, winner: 0}]);
   renderWithProviders(<Router><SoloGame/></Router>);
   const buttonElement = screen.getByAltText('picOfPaper');
