@@ -7,12 +7,14 @@ interface loginState {
     loading: boolean;
     error: boolean;
     username?: string;
+    current: number;
   };
 
 const initialLoginState: loginState = {
     loading: false,
     error: false,
-    username: ""
+    username: "",
+    current: 0
   };
 
 export async function apiLogin(username:String, passphrase:String) {
@@ -80,11 +82,14 @@ export const loginSlice = createSlice({
       },
       setUser: (state, action) =>{
         state.username = action.payload;
+      },
+      setCurrent: (state, action) =>{
+        state.current = action.payload;
       }
     },
 });
 
-export const { clearUser, setUser } = loginSlice.actions;
+export const { clearUser, setUser, setCurrent } = loginSlice.actions;
 
 export default loginSlice.reducer;
 
