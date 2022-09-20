@@ -85,11 +85,15 @@ const Messenger: React.FC = () => {
 
       //setTimeout(()=>{setRound({userChoice: 0, opponentChoice: 0, winner: 4})}, 5000);
     }
+    if(bigGame.gameOver){
+      console.log(tempChoice);
+      setTempChoice(0);
+    }
     // console.log(
     //   "useeffect connected?: " + connectionStatus + " username = " + userName
     // );
     // console.log("the proper count" + userData.message.count);
-  }, [game.userChoice, game.opponentChoice, usersChoice, opponentsChoice, connectionStatus, userData.message.count]);
+  }, [game.userChoice, game.opponentChoice, bigGame.gameOver, usersChoice, opponentsChoice, connectionStatus, userData.message.count]);
 
   // Show the input box when the user clicks the Get Support button
   const showConnect = () => {
@@ -354,6 +358,8 @@ const Messenger: React.FC = () => {
     return thisRound;
   };
 
+  
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (event.currentTarget.id === "2") {
       dispatch(opponentMove({ userChoice: 0, opponentChoice: 0, winner: 4 }));
@@ -363,17 +369,26 @@ const Messenger: React.FC = () => {
         setOpponentChoice(tempChoice);
         setUserData({ ...userData, message: { limit: userData.message.limit, count: userData.message.count, move: 0 } })
         stopper = false;
+        setTempChoice(0);
       }else{
         // console.log("inside handle click if & else count/msg" + userData.message.count);
       setOpponentChoice(0);
       setUserData({ ...userData, message: { limit: userData.message.limit, count: userData.message.count, move: 0 } })
       stopper = false;}
     } else if (event.currentTarget.id === "1") {
+      if(tempChoice === 0){
       dispatch(clearGame());
       setUserChoice(0);
       setOpponentChoice(0);
       setUserData({ ...userData, message: { limit: 0, count: false, move: 0 } });
-      stopper = false;
+      stopper = false;}
+      else{
+        dispatch(clearGame());
+        setUserChoice(0);
+        setOpponentChoice(tempChoice);
+        setUserData({ ...userData, message: { limit: userData.message.limit, count: userData.message.count, move: 0 } });
+        stopper = false;
+      }
     } else {
       console.log("Something went horribly wrong");
     }
