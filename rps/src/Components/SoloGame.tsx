@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 export const SoloGame: React.FC = () => {
 
   const [round, setRound] = useState<IRound>({userChoice: 0, opponentChoice: 0, winner: 0});
-  const [record, setRecord] = useState<IGame>({matchTo: 3, wins: 0, losses: 0, user:""});
+  const [record, setRecord] = useState<IGame>({matchTo: 3, wins: 0, losses: 0, gameOver: false});
   const oppMove = useSelector((state:RootState) => state.game);
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
@@ -84,24 +84,24 @@ export const SoloGame: React.FC = () => {
   // }
 
   return (
-    <div className="wholePage">
+    <div className="solo-container">
       <div className="result-page" title ="result-page">
         <div className="wins-losses">
             <div className="wins">Wins
-                <div className="win-count">{record.wins}</div>
+                <div title="record" className="win-count">{record.wins}</div>
             </div>
             <div className="losses">Losses
-                <div className="loss-count">{record.losses}</div>
+                <div title="record-loss" className="loss-count">{record.losses}</div>
             </div>
         </div>
       </div>
       {round.userChoice === 0 ? 
         <>
-        <h1>CHOOSE!</h1>
+        <h1 className="choose">CHOOSE!</h1>
         <table className="table">
           <thead>
             <tr>
-              <td><button  className="rock" value="1" onClick={handleUserChoice}><img className="image" src={RockP1} alt="picOfRock"/></button></td>
+              <td><button title="rock" className="rock" value="1" onClick={handleUserChoice}><img className="image" src={RockP1} alt="picOfRock"/></button></td>
               <td><button className="paper" value="2" onClick={handleUserChoice}><img className="image" src={PaperP1} alt="picOfPaper"/></button></td>
               <td><button className="scissors" value="3" onClick={handleUserChoice}><img className="image" src={ScissorsP1} alt="picOfScissors"/></button></td>
             </tr>
@@ -109,10 +109,11 @@ export const SoloGame: React.FC = () => {
         </table> 
         </>: <>
           <Result {...round}/>
-          <button className="play-again" value="0" onClick={handlePlayAgain}>Play Again</button>
+          <button className="play-again" title="play" value="0" onClick={handlePlayAgain}>Play Again</button>
           </>} 
           {/* <button onClick={navigate()}>Go Home</button> */}
           {/* <Messenger/> */}
     </div>
   );
 };
+

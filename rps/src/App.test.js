@@ -2,10 +2,13 @@ import { render, screen } from '@testing-library/react';
 import App from './App';
 import { Provider } from 'react-redux';
 import {Home} from "./Components/Home";
-import { store } from './Store';
+import { AppStore } from './Store';
+import { renderWithProviders } from './test-utils';
+import {BrowserRouter as Router} from "react-router-dom";
 
-test('renders learn react link', () => {
-  render(<Provider store = {store}><App/></Provider>);
-  const divElement = screen.getByTitle("result-page");
+
+test('renders app', () => {
+  renderWithProviders(<App/>);
+  const divElement = screen.getByTitle("solo");
   expect(divElement).toBeInTheDocument();
 });

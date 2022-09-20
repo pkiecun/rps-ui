@@ -1,9 +1,12 @@
 import "./Login.css";
 import logo from '../../image/pixelgram-logo.png';
 import React, {useEffect, useState} from "react";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { apiLogin, apiValidateLogin } from "../Slices/LoginSlice";
 import RockP1 from '../Images/RockP1.jpg';
+import { setUser } from "../Slices/LoginSlice";
+import { AppDispatch } from "../Store";
+import { useDispatch } from "react-redux";
 // import { apiLogin } from "../../Remote/LoginService";
 
 // import { apiValidateLogin } from "../../Remote/NavbarService";
@@ -15,6 +18,7 @@ export const Login: React.FC = () => {
     const [noUsernameError, setNoUserNameError] = useState<string>('');
     const [noPasswordError, setNoPasswordError] = useState<string>('');
     const [incorrectLogin, setIncorrectLogin] = useState<string>('');
+    const dispatch: AppDispatch = useDispatch();
     // var user = '';
     // var passwordinput = '';
 
@@ -55,6 +59,8 @@ export const Login: React.FC = () => {
             // put auth token into local storage
             localStorage.setItem("token", result.payload.token);
             console.log(result.payload.token);
+            dispatch(setUser(username));
+            console.log(username);
             //navigate to home
             navigator('/');
             }
@@ -102,6 +108,7 @@ export const Login: React.FC = () => {
                 <div className="loginFooter" title="loginFooter">
                     <div className="noPasswordError" title="noPasswordError">{noPasswordError}</div>
                     <div className="incorrectLogin"  title="incorrectLoginError" >{incorrectLogin}</div> 
+                    <Link className="register-button" to="/register">Register</Link> 
                     <button className="loginButton" type="button" onClick={handleSubmit}>Login</button> 
                 </div>
             </div>

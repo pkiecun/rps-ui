@@ -3,26 +3,23 @@ import React from "react";
 import {Home} from "./Home";
 import { Provider } from 'react-redux';
 import { store } from '../Store';
+import {BrowserRouter as Router} from "react-router-dom";
+import { renderWithProviders } from '../test-utils';
 
-test('result page testing', ()=>{
-    render(<Provider store = {store}><Home/></Provider>);
-    const divElement = screen.getByTitle("result-page");
-    const hElement = screen.getByText("CHOOSE!");
-    expect(divElement).toBeInTheDocument();
-    expect(hElement).toBeInTheDocument();
+
+test('solo btn works', ()=>{
+    renderWithProviders(<Router><Home/></Router>);
+    const solo =  screen.getByTitle('solo');
+    fireEvent.click( solo);
+    const url = '/solo';
+    waitFor(()=>expect(window.location.pathname).toBe(url));
 });
 
-jest.mock('axios');
-
-test('three functions in one test', async ()=>{
-    const setRound = jest.fn();
-    const oppMove = jest.fn();
-    const chooseWinner = jest.fn();
-    const roundChange = jest.spyOn(React,'useState');
-    roundChange.mockImplementation(round => [round, setRound]);
-    render(<Provider store = {store}><Home/></Provider>);
-    const buttonElement = screen.getByAltText('picOfRock');
-    const buttonSecondElement = screen.findByText("Play Again");
-    fireEvent.click(buttonElement);
-    waitFor(()=>{expect(buttonSecondElement).toBeInTheDocument();});
+test('multi btn works', ()=>{
+    renderWithProviders(<Router><Home/></Router>);
+    const multi =  screen.getByTitle('multi');
+    fireEvent.click( multi);
+    const url = '/multi';
+    waitFor(()=>expect(window.location.pathname).toBe(url));
 });
+

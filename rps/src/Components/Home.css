@@ -1,19 +1,144 @@
 
 .wholePage {
     display: flex;
-    flex-direction: row;
+    position: relative;
+    flex-direction: column;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
 }
 
 .solo {
-    width: 55px;
+    display: block;
+    position: relative;
+    border: 1px solid lightgray;
+    color: black;
+    cursor: pointer;
+    border-radius: 10px;
+    width: 95px;
     height: 35px;
-    margin-top: 20vh;
+    left: 130px;
+    background-color: rgb(245, 245, 245);
+    transition: .35s ease-out;
+}
+
+.solo:hover{
+    transition: .35s ease-in;
+    background-color: black;
+    color: whitesmoke;
 }
 
 .multi {
-    width: 55px;
+    display: block;
+    position: relative;
+    width: 95px;
     height: 35px;
+    border: 1px solid lightgray;
+    cursor: pointer;
+    color: black;
+    border-radius: 10px;
+    left: 130px;
+    background-color: rgb(245, 245, 245);
+    transition: .35s ease-out;
+    
 }
+
+.multi:hover{
+    transition: .35s ease-in;
+    background-color: black;
+    color: whitesmoke;
+}
+
+.animation{
+    display: inline;
+    align-items: center;
+    height: 130px;
+    margin-top: 100px;
+}
+
+.rules-container{
+    
+  
+  /* background-color: #2196F3; */
+    margin-top: 50px;
+    height: 200px;
+    width: 750px;
+    font-size: smaller;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 10px;
+  
+}
+
+
+
+tr{
+    text-align: center;
+}
+
+.rules{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    
+}
+
+.single-multi{
+    
+}
+.single{
+    width: 50%;
+}
+.rules-txt{
+   
+}
+
+.single-rules{
+    border-right: 1px solid black;
+}
+
+.multi-rules{
+ border-left: 1px solid black;
+}
+
+
+.res-img3 {
+    /* height: 100px;
+    width: 100px; */
+    height: 100px;
+    width: 100px;
+    animation-name: player1B;
+    animation-duration: 2.3s;
+    position: relative;
+    animation-iteration-count: infinite;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.res-img4 {
+    /* height: 100px;
+    width: 100px; */
+    height: 100px;
+    width: 100px;
+    animation-name: player2B;
+    animation-duration: 2.3s;
+    position: relative;
+    animation-iteration-count: infinite;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+
+@keyframes player1B {
+    50%{transform: rotate(-80deg);}
+ }
+ 
+ @keyframes player2B {
+     50%{transform: rotate(80deg);}
+ }

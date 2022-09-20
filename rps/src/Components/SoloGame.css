@@ -1,23 +1,41 @@
 
-.wholePage {
+.solo-container {
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+    height: 80vh;
+    width: 100vw;
+    display: grid;
+    grid-template-areas: 
+    'top banner top'
+    'brunch choose brunch'
+    'middle middle middle'
+    'bottom bottom bottom';
 }
 
 .result-page{
-    display: flex;
+    display: grid;
+    grid-template-areas: 
+    'top banner top'
+    'brunch choose brunch'
+    'middle middle middle'
+    'bottom bottom bottom';
     position: relative;
-    flex-direction: column;
     justify-content: center;
+
 }
 
 
 .wins-losses{
     display: flex;
     position: relative;
+    grid-area: 'banner';
     justify-content: center;
     flex-direction: row;
+    top: 5px;
+}
+
+.choose{
+    grid-area: 'choose';
+
 }
 
 .table {
@@ -49,9 +67,33 @@
     width: 100px; */
     height: fit-content;
     width: fit-content;
+    cursor: pointer;
 }
 
 .play-again {
-    height: 50px;
-    width: 100px;
+    height: 35px;
+    width: 200px;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+    background-color: rgb(245, 245, 245);
+    cursor: pointer;
+    transition: .25s ease-out;
+    margin-bottom: 20px;
+}
+
+.play-again:hover{
+    transition: .25s ease-in;
+    background-color: black;
+    color: whitesmoke;
+}
+
+.wins{
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+.losses {
+    margin-left: 10px;
+    font-weight: 500;
 }
