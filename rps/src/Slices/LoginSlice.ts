@@ -20,7 +20,7 @@ const initialLoginState: loginState = {
 export async function apiLogin(username:String, passphrase:String) {
      const body = {username, passphrase}
 
-    return axios.post(`http://localhost:8000/user/login`, body).then(res => {
+    return axios.post(`http://18.221.132.125:8000/user/login`, body).then(res => {
         return {
             status: res.status,
             payload: {
@@ -39,7 +39,7 @@ export async function apiLogin(username:String, passphrase:String) {
 
 export async function apiValidateLogin(token:string|null) {
 
-    const response = await axios.get(`http://localhost:8000/user/authenticate`, {
+    const response = await axios.get(`http://18.221.132.125:8000/user/authenticate`, {
         headers: {
           'token': `${token}`
         }});
@@ -47,7 +47,7 @@ export async function apiValidateLogin(token:string|null) {
 }
 
 export async function apiLogout(token:string|null) {
-    const response = await axios.get(`http://localhost:8000/user/logout`, {
+    const response = await axios.get(`http://18.221.132.125:8000/user/logout`, {
         headers: {
           'token': `${token}`
         }});
@@ -57,7 +57,7 @@ export async function apiLogout(token:string|null) {
 export async function apiRegister(username: string, passphrase: string) {
   const body = {username, passphrase}
 
- return axios.post(`http://localhost:8000/user/register`, body).then(res => {
+ return axios.post(`http://18.221.132.125:8000/user/register`, body).then(res => {
      return {
          status: res.status,
          payload: {

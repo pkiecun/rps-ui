@@ -28,7 +28,7 @@ export const Navbar: React.FC = () => {
             apiLogout(localStorage.getItem("token"));
             localStorage.clear();
             dispatch(clearUser());
-            window.location.reload();
+            Navigator('/');
             setLoggedIn(false);
 
         }

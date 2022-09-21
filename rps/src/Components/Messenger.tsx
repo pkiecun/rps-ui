@@ -109,7 +109,7 @@ const Messenger: React.FC = () => {
 
   // Connection to the server
   const connect = () => {
-    let Sock = new SockJS("http://localhost:8000/ws");
+    let Sock = new SockJS("http://18.221.132.125:8000/ws");
     stompClient = over(Sock);
     stompClient.connect({}, onConnected, onError);
   };
@@ -380,12 +380,14 @@ const Messenger: React.FC = () => {
       dispatch(clearGame());
       setUserChoice(0);
       setOpponentChoice(0);
+      console.log('inside if play again: ', tempChoice);
       setUserData({ ...userData, message: { limit: 0, count: false, move: 0 } });
       stopper = false;}
       else{
         dispatch(clearGame());
         setUserChoice(0);
         setOpponentChoice(tempChoice);
+        console.log('inside else play again: ', tempChoice);
         setUserData({ ...userData, message: { limit: userData.message.limit, count: userData.message.count, move: 0 } });
         stopper = false;
       }
