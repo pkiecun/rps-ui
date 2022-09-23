@@ -1,5 +1,5 @@
 export interface IMatch {
     limit: number,
-    count: boolean,
-    move: number
+    move: number,
+    id: number
 }

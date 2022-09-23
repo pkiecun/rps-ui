@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import RockP1 from '../Images/RockP1.jpg';
 import ScissorsP2 from '../Images/ScissorsP2.jpg';
 import { apiLogout, apiValidateLogin, clearUser } from "../Slices/LoginSlice";
@@ -11,11 +11,12 @@ export const Navbar: React.FC = () => {
 
     const Navigator = useNavigate();
     const [isHovering, setIsHovering] = useState<boolean>(false);
-    const location = useLocation();
+   // const location = useLocation();
     const [loggedIn, setLoggedIn] = useState<boolean>(false);
     const handleMouseOver = () => {setIsHovering(true);};  
     const handleMouseOut = () => {setIsHovering(false);};
     const dispatch:AppDispatch = useDispatch();
+  
         
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         if(event.currentTarget.id === "nameImg"){
@@ -28,7 +29,8 @@ export const Navbar: React.FC = () => {
             apiLogout(localStorage.getItem("token"));
             localStorage.clear();
             dispatch(clearUser());
-            window.location.reload();
+            //window.location.reload();
+            Navigator('/');
             setLoggedIn(false);
 
         }
@@ -49,8 +51,8 @@ export const Navbar: React.FC = () => {
                 localStorage.setItem("token", "null");
                 //Navigator('/login')
         });
-               
-        }, [localStorage.getItem("token")])
+               // eslint-disable-next-line
+        }, [localStorage.getItem("token"), loggedIn])
 
     return(
         <div className = "navbar">
